@@ -31,7 +31,7 @@ class Proveedor {
     id_proveedor: requerido ? Joi.string().required() : Joi.string();
     ruc: requerido ? Joi.string().required() : Joi.string();
     razon_social: requerido ? Joi.string().required() : Joi.string();
-    ruc: requerido ? Joi.string().required() : Joi.string();
+    direccion: requerido ? Joi.string().required() : Joi.string();
     const { error } = ProveedorSchema.validate(proveedor);
     if (error) {
       throw error;
