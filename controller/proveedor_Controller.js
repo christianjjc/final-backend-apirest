@@ -12,7 +12,7 @@ class ProveedorControlador {
       let proveedores = await this.proveedorApi.getProveedores(body.id_proveedor);
       return res.send(proveedores);
     } catch (error) {
-      console.log("ERROR obtener id proveedor - Controllador", error);
+      throw new Error(error);
     }
   };
 
@@ -22,7 +22,7 @@ class ProveedorControlador {
       let proveedores = await this.proveedorApi.deleteProveedor(body.id_proveedor);
       return res.send("Proveedor Eliminado: " + body.id_proveedor);
     } catch (error) {
-      console.log("ERROR eliminar Proveedor - Controllador", error);
+      throw new Error(error);
     }
   };
 
@@ -32,7 +32,7 @@ class ProveedorControlador {
       let proveedor = await this.proveedorApi.updateProveedor(body);
       return res.send({ Resultado_Actualización: proveedor });
     } catch (error) {
-      console.log("ERROR actualizar Proveedor - Controllador", error);
+      throw new Error(error);
     }
   };
 
@@ -47,7 +47,7 @@ class ProveedorControlador {
       let proveedor = await this.proveedorApi.saveProveedor(registro);
       return res.send({ Resultado_Registro: proveedor });
     } catch (error) {
-      console.log("ERROR registrar Proveedor - Controllador", error);
+      throw new Error(error);
     }
   };
 }

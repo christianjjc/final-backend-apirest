@@ -1,4 +1,4 @@
-const knex = require("knex")({
+/* const knex = require("knex")({
     client: "sqlite3",
     connection: {
       filename: "./db/ci.sqlite",
@@ -133,3 +133,4 @@ const insertar = async()=>{
   insertar()
 
 
+ */

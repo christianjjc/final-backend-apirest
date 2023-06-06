@@ -52,7 +52,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
         return proveedores;
       }
     } catch (error) {
-      console.log("obtenerProveedor/es error", error);
+      throw new Error(error);
     }
   };
 
@@ -66,7 +66,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
         .first();
       return result;
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   };
 
@@ -74,9 +74,8 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
     try {
       await this._db("proveedores").insert(obj);
       return obj;
-    } catch (err) {
-      console.log(err);
-      throw new Error(err);
+    } catch (error) {
+      throw new Error(error);
     }
   };
 
@@ -90,9 +89,8 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
           direccion: obj.direccion,
         });
       return rows;
-    } catch (err) {
-      console.log(err);
-      throw new Error(err);
+    } catch (error) {
+      throw new Error(error);
     }
   };
 
@@ -103,7 +101,6 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
         .del();
       return rows;
     } catch (error) {
-      console.log("deleteProveedor/es error", error);
       throw new Error(error);
     }
   };
