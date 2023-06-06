@@ -12,7 +12,7 @@ class ProveedorControlador {
       let proveedores = await this.proveedorApi.getProveedores(body.id_proveedor);
       return res.send(proveedores);
     } catch (error) {
-      console.log("Error obtener id proveedor - Controllador", error);
+      console.log("ERROR obtener id proveedor - Controllador", error);
     }
   };
 
@@ -22,7 +22,7 @@ class ProveedorControlador {
       let proveedores = await this.proveedorApi.deleteProveedor(body.id_proveedor);
       return res.send("Proveedor Eliminado: " + body.id_proveedor);
     } catch (error) {
-      console.log("Error eliminar Proveedor - Controllador", error);
+      console.log("ERROR eliminar Proveedor - Controllador", error);
     }
   };
 
@@ -30,9 +30,9 @@ class ProveedorControlador {
     const { body } = req;
     try {
       let proveedor = await this.proveedorApi.updateProveedor(body);
-      return res.send({ Proveedor_Actualizado: proveedor });
+      return res.send({ Resultado_Actualización: proveedor });
     } catch (error) {
-      console.log("Error actualizar Proveedor - Controllador", error);
+      console.log("ERROR actualizar Proveedor - Controllador", error);
     }
   };
 
@@ -45,9 +45,9 @@ class ProveedorControlador {
       const nuevoId = UtilidadesCj.generarID(8, result.id_proveedor);
       const registro = { id_proveedor: nuevoId, ...body };
       let proveedor = await this.proveedorApi.saveProveedor(registro);
-      return res.send({ Proveedor_Registrado: proveedor });
+      return res.send({ Resultado_Registro: proveedor });
     } catch (error) {
-      console.log("Error registrar Proveedor - Controllador", error);
+      console.log("ERROR registrar Proveedor - Controllador", error);
     }
   };
 }
