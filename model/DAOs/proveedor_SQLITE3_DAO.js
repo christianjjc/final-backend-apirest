@@ -19,13 +19,13 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
     })();
   }
 
-  getProveedores = async (id) => {
+  getProveedores = async (id_proveedor) => {
     try {
-      if (id) {
+      if (id_proveedor) {
         const rows = await this._db
           .select("*")
           .from("proveedores")
-          .where("id_proveedor", id);
+          .where("id_proveedor", id_proveedor);
         const proveedor = rows.map((row) => {
           return {
             id_proveedor: row["id_proveedor"],
@@ -56,10 +56,34 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
     }
   };
 
+  getIdProveedor = async (anomes) => {
+    try {
+      let result = await this._db
+        .select("id_proveedor")
+        .from("proveedores")
+        .where("id_proveedor", "like", `${anomes}%`)
+        .orderBy("id_proveedor", "desc")
+        .first();
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  saveProveedor = async (obj) => {
+    try {
+      await this._db("proveedores").insert(obj);
+      return obj;
+    } catch (err) {
+      console.log(err);
+      throw new Error(err);
+    }
+  };
+
   updateProveedor = async (obj) => {
     try {
       const rows = await this._db("proveedores")
-        .where("id_proveedor", "=", obj.id)
+        .where("id_proveedor", "=", obj.id_proveedor)
         .update({
           ruc: obj.ruc,
           razon_social: obj.razon_social,
@@ -72,10 +96,10 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
     }
   };
 
-  deleteProveedor = async (id) => {
+  deleteProveedor = async (id_proveedor) => {
     try {
       const rows = await this._db("proveedores")
-        .where("id_proveedor", "=", id)
+        .where("id_proveedor", "=", id_proveedor)
         .del();
       return rows;
     } catch (error) {

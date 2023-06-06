@@ -7,12 +7,21 @@ class ProveedorApi {
     this.proveedoresDAO = ProveedoresFactoryDAO.get(config.TIPO_PERSISTENCIA);
   }
 
-  async getProveedores(id) {
-    return await this.proveedoresDAO.getProveedores(id);
+  async getIdProveedor(anomes) {
+    return await this.proveedoresDAO.getIdProveedor(anomes);
   }
 
-  async deleteProveedor(id) {
-    return await this.proveedoresDAO.deleteProveedor(id);
+  async saveProveedor(obj) {
+    return await this.proveedoresDAO.saveProveedor(obj);
+  }
+  
+
+  async getProveedores(id_proveedor) {
+    return await this.proveedoresDAO.getProveedores(id_proveedor);
+  }
+
+  async deleteProveedor(id_proveedor) {
+    return await this.proveedoresDAO.deleteProveedor(id_proveedor);
   }
 
   async updateProveedor(obj) {
