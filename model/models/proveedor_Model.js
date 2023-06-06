@@ -28,10 +28,10 @@ class Proveedor {
 
   static validar(proveedor, requerido) {
     const ProveedorSchema = Joi.object();
-    ruc: id_proveedor ? Joi.string().required() : Joi.string();
+    id_proveedor: requerido ? Joi.string().required() : Joi.string();
     ruc: requerido ? Joi.string().required() : Joi.string();
     razon_social: requerido ? Joi.string().required() : Joi.string();
-    ruc: direccion ? Joi.string().required() : Joi.string();
+    ruc: requerido ? Joi.string().required() : Joi.string();
     const { error } = ProveedorSchema.validate(proveedor);
     if (error) {
       throw error;
@@ -39,4 +39,4 @@ class Proveedor {
   }
 }
 
-export default Proveedor
+export default Proveedor;
