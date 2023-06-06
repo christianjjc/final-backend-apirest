@@ -1,7 +1,9 @@
 import config from "./config.js";
 import express from "express";
+import cors from "cors";
 
 const app = express();
+if (config.NODE_ENV == "development") app.use(cors());
 
 console.log(config);
 
@@ -15,6 +17,10 @@ const server = app.listen(PORT, () => {
   );
 });
 
-app.get('/',(req, res) =>{
-    return res.status(200).json({respuesta: 'Servidro OK'});
+server.on("error", (error) => console.log("Servidor express en error:", error));
+
+app.get("/",(req, res)=>{
+
+    return res.json({uno: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!"})
+
 })
