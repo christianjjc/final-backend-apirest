@@ -8,9 +8,9 @@ class ProveedorRouter {
   }
 
   start() {
-    router.get("/:id?", this.proveedorControlador.getProveedores);
-    // router.put("/:id?",this.proveedorControlador.getProveedores)
-    // router.delete("/:id?",this.proveedorControlador.getProveedores)
+    router.get("/", this.proveedorControlador.getProveedores);
+    router.put("/",this.proveedorControlador.updateProveedor);
+    router.delete("/", this.proveedorControlador.deleteProveedor);
     return router;
   }
 }
