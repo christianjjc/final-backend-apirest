@@ -18,3 +18,9 @@ const server = app.listen(PORT, () => {
 });
 
 server.on("error", (error) => console.log("Servidor express en error:", error));
+
+app.get("/",(req, res)=>{
+
+    return res.json({Mensaje: "Respuesta del Servidor!"})
+
+})
