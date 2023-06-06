@@ -1,6 +1,7 @@
 import config from "./config.js";
 import express from "express";
 import cors from "cors";
+import ProveedorRouter from "./routes/proveedor_Router.js";
 
 const app = express();
 if (config.NODE_ENV == "development") app.use(cors());
@@ -8,7 +9,11 @@ if (config.NODE_ENV == "development") app.use(cors());
 console.log(config);
 
 app.use(express.static("public"));
+
 app.use(express.json());
+
+const routerProveedor = new ProveedorRouter();
+app.use("/proveedores", routerProveedor.start());
 
 const PORT = config.PORT || "8080";
 const server = app.listen(PORT, () => {
@@ -18,9 +23,3 @@ const server = app.listen(PORT, () => {
 });
 
 server.on("error", (error) => console.log("Servidor express en error:", error));
-
-app.get("/",(req, res)=>{
-
-    return res.json({Mensaje: "Respuesta del Servidor!"})
-
-})
