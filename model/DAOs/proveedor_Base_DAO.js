@@ -6,7 +6,7 @@ class ProveedoresBaseDAO {
 
   getIndex(_id, proveedores) {
     return proveedores.findIndex(
-      (proveedor) => (proveedores.id_proveedor = _id)
+      (proveedor) => (proveedor.id_proveedor = _id)
     );
   }
 }

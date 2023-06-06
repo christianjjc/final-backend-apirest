@@ -1,6 +1,6 @@
+import ProveedoresBaseDAO from "./proveedor_Base_DAO.js";
 import knex from "knex";
 import config from "../../config.js";
-import ProveedoresBaseDAO from "./proveedor_Base_DAO.js";
 
 class ProveedorSQLITE3 extends ProveedoresBaseDAO {
   constructor() {
@@ -14,7 +14,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
         },
         useNullAsDefault: true,
       });
-      console.log("conectado!");
+      console.log("...conectado!");
       this._db = db;
     })();
   }
@@ -105,5 +105,4 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
     }
   };
 }
-
 export default ProveedorSQLITE3;
