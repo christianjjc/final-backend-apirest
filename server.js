@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import ProveedorRouter from "./routes/proveedor_Router.js";
 import RolRouter from "./routes/rol_Router.js";
+import UsuarioRouter from "./routes/usuario_Router.js";
 
 const app = express();
 if (config.NODE_ENV == "development") app.use(cors());
@@ -15,6 +16,8 @@ const routerProveedor = new ProveedorRouter();
 app.use("/proveedores", routerProveedor.start());
 const routerRol = new RolRouter();
 app.use("/roles", routerRol.start());
+const routerUsuario = new UsuarioRouter();
+app.use("/usuarios", routerUsuario.start());
 /** ------------ */
 
 
