@@ -8,7 +8,7 @@ class LoginRouter {
   }
 
   start() {
-    router.get("/", this.loginControlador.getUsuarios);
+    router.post("/", this.loginControlador.getUsuarios);
     return router;
   }
 }
