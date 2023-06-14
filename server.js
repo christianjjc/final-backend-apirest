@@ -13,6 +13,7 @@ console.log(config);
 /** Midlewares */
 app.use(express.static("public"));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 /** ------------ */
 const routerLogin = new LoginRouter();
