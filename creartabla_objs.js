@@ -1,9 +1,10 @@
 class Proveedor {
-  constructor(id_proveedor, ruc, razon_social, direccion) {
+  constructor(id_proveedor, ruc, razon_social, direccion, telefono) {
     (this.id_proveedor = id_proveedor),
       (this.ruc = ruc),
       (this.razon_social = razon_social),
-      (this.direccion = direccion);
+      (this.direccion = direccion),
+      (this.telefono = telefono);
   }
 }
 
@@ -13,38 +14,71 @@ proveedores.push(
     "23060001",
     "20140476545",
     "Moro SRL",
-    "Av mariategui 446, Jesús María, Lima - 15072"
+    "Av mariategui 446, Jesús María, Lima - 15072",
+    "999999999"
   )
 );
 proveedores.push(
-  new Proveedor("23060002", "20140400000", "JMK", "Av mariategui 446, Jesús María, Lima - 15072")
+  new Proveedor(
+    "23060002",
+    "20140400000",
+    "JMK",
+    "Av mariategui 446, Jesús María, Lima - 15072",
+    "999999999"
+  )
 );
 proveedores.push(
-  new Proveedor("23060003", "20140411111", "CAH", "Av mariategui 446, Jesús María, Lima - 15072")
+  new Proveedor(
+    "23060003",
+    "20140411111",
+    "CAH",
+    "Av mariategui 446, Jesús María, Lima - 15072",
+    "999999999"
+  )
 );
 proveedores.push(
-  new Proveedor("23060004", "20140422222", "AYM", "Av mariategui 446, Jesús María, Lima - 15072")
+  new Proveedor(
+    "23060004",
+    "20140422222",
+    "AYM",
+    "Av mariategui 446, Jesús María, Lima - 15072",
+    "999999999"
+  )
 );
 proveedores.push(
   new Proveedor(
     "23000005",
     "20140433333",
     "CORPECSAC",
-    "Av mariategui 446, Jesús María, Lima - 15072"
+    "Av mariategui 446, Jesús María, Lima - 15072",
+    "999999999"
   )
 );
 proveedores.push(
-  new Proveedor("23060006", "20140444444", "KyC", "Av mariategui 446, Jesús María, Lima - 15072")
+  new Proveedor(
+    "23060006",
+    "20140444444",
+    "KyC",
+    "Av mariategui 446, Jesús María, Lima - 15072",
+    "999999999"
+  )
 );
 proveedores.push(
-  new Proveedor("23060007", "20140455555", "Brimax", "Av mariategui 446, Jesús María, Lima - 15072")
+  new Proveedor(
+    "23060007",
+    "20140455555",
+    "Brimax",
+    "Av mariategui 446, Jesús María, Lima - 15072",
+    "999999999"
+  )
 );
 proveedores.push(
   new Proveedor(
     "23060008",
     "20140466666",
     "EL puertito",
-    "Av mariategui 446, Jesús María, Lima - 15072"
+    "Av mariategui 446, Jesús María, Lima - 15072",
+    "999999999"
   )
 );
 proveedores.push(
@@ -52,7 +86,8 @@ proveedores.push(
     "23060009",
     "20140477777",
     "El Moyomoyo",
-    "Av mariategui 446, Jesús María, Lima - 15072"
+    "Av mariategui 446, Jesús María, Lima - 15072",
+    "999999999"
   )
 );
 

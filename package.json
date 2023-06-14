@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "ApiRest para control ERP de empresa",
   "main": "index.js",
-  "type": "module",
   "scripts": {
     "dev": "set NODE_ENV=development&& set TIPO_PERSISTENCIA=SQLITE3&& node server.js",
     "dw": "set NODE_ENV=development&& set TIPO_PERSISTENCIA=SQLITE3&& nodemon server.js"

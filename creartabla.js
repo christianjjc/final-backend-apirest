@@ -18,7 +18,8 @@ const crearTabla = async (connection, nombreTabla) => {
           table.string("id_proveedor", 8).primary().notNullable().unique(),
             table.string("ruc", 11),
             table.string("razon_social", 250),
-            table.string("direccion", 500);
+            table.string("direccion", 500),
+            table.string("telefono", 30);
         })
         .then(() => {
           console.log("Tabla proveedores creada con éxito");

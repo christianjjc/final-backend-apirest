@@ -32,6 +32,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
             ruc: row["ruc"],
             razon_social: row["razon_social"],
             direccion: row["direccion"],
+            telefono: row["telefono"],
           };
         });
         return proveedor;
@@ -40,13 +41,14 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
           .select("*")
           .from("proveedores")
           .limit(100)
-          .orderBy("id_proveedor", "asc");
+          .orderBy("razon_social", "asc");
         const proveedores = rows.map((row) => {
           return {
             id_proveedor: row["id_proveedor"],
             ruc: row["ruc"],
             razon_social: row["razon_social"],
             direccion: row["direccion"],
+            telefono: row["telefono"],
           };
         });
         return proveedores;
@@ -87,6 +89,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
           ruc: obj.ruc,
           razon_social: obj.razon_social,
           direccion: obj.direccion,
+          telefono: obj.telefono,
         });
       return rows;
     } catch (error) {
@@ -96,9 +99,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
 
   deleteProveedor = async (id_proveedor) => {
     try {
-      const rows = await this._db("proveedores")
-        .where("id_proveedor", "=", id_proveedor)
-        .del();
+      const rows = await this._db("proveedores").where("id_proveedor", "=", id_proveedor).del();
       return rows;
     } catch (error) {
       throw new Error(error);
