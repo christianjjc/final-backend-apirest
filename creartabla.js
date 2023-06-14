@@ -1,4 +1,3 @@
-/* 
 const { roles, usuarios, proveedores } = require("./creartabla_objs");
 
 const knex = require("knex")({
@@ -38,6 +37,7 @@ const crearTabla = async (connection, nombreTabla) => {
           table.string("id_rol", 8).primary().notNullable().unique(),
             table.string("nombre_rol", 250),
             table.string("desc_rol", 500);
+          table.integer("level");
         })
         .then(() => {
           console.log("Tabla roles creada con éxito");
@@ -74,10 +74,8 @@ const crearTabla = async (connection, nombreTabla) => {
   }
 };
 
-
 const insertarRegs = async (tabla, array) => {
-
-    await knex(tabla) // Reemplaza 'mytable' con el nombre de tu tabla
+  await knex(tabla) // Reemplaza 'mytable' con el nombre de tu tabla
     .insert(array)
     .then(() => {
       console.log("Registros insertados correctamente");
@@ -88,12 +86,7 @@ const insertarRegs = async (tabla, array) => {
     .finally(() => {
       knex.destroy(); // Cierra la conexión con la base de datos
     });
-
 };
-
-
-
-
 
 //crearTabla(knex, "proveedores");
 //crearTabla(knex, "roles");
@@ -101,5 +94,4 @@ const insertarRegs = async (tabla, array) => {
 
 //insertarRegs("proveedores", proveedores);
 //insertarRegs("roles", roles);
-insertarRegs("usuarios", usuarios);
- */
+//insertarRegs("usuarios", usuarios);

@@ -39,7 +39,7 @@ class UsuarioSQLITE3 extends UsuariosBaseDAO {
         const rows = await this._db
           .select("*")
           .from("usuarios")
-          .innerJoin('roles', 'usuarios.id_rol', 'roles.id_rol')
+          .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
           .where("id_usuario", id_usuario);
         const usuarios = rows.map((row) => {
           return {
@@ -49,6 +49,7 @@ class UsuarioSQLITE3 extends UsuariosBaseDAO {
             id_rol: row["id_rol"],
             nombre_rol: row["nombre_rol"],
             desc_rol: row["desc_rol"],
+            level: row["level"],
           };
         });
         return usuarios;
@@ -56,7 +57,7 @@ class UsuarioSQLITE3 extends UsuariosBaseDAO {
         const rows = await this._db
           .select("*")
           .from("usuarios")
-          .innerJoin('roles', 'usuarios.id_rol', 'roles.id_rol')
+          .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
           .limit(100)
           .orderBy("id_usuario", "asc");
         const usuarios = rows.map((row) => {
@@ -67,6 +68,7 @@ class UsuarioSQLITE3 extends UsuariosBaseDAO {
             id_rol: row["id_rol"],
             nombre_rol: row["nombre_rol"],
             desc_rol: row["desc_rol"],
+            level: row["level"],
           };
         });
         return usuarios;
@@ -87,13 +89,11 @@ class UsuarioSQLITE3 extends UsuariosBaseDAO {
 
   updateUsuario = async (obj) => {
     try {
-      const rows = await this._db("usuarios")
-        .where("id_usuario", "=", obj.id_usuario)
-        .update({
-            nombre_usuario: obj.nombre_usuario,
-            pass_usuario: obj.pass_usuario,
-            id_rol: obj.id_rol,
-        });
+      const rows = await this._db("usuarios").where("id_usuario", "=", obj.id_usuario).update({
+        nombre_usuario: obj.nombre_usuario,
+        pass_usuario: obj.pass_usuario,
+        id_rol: obj.id_rol,
+      });
       return rows;
     } catch (error) {
       throw new Error(error);

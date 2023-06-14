@@ -1,4 +1,3 @@
-/* 
 class Proveedor {
   constructor(id_proveedor, ruc, razon_social, direccion) {
     (this.id_proveedor = id_proveedor),
@@ -18,28 +17,13 @@ proveedores.push(
   )
 );
 proveedores.push(
-  new Proveedor(
-    "23060002",
-    "20140400000",
-    "JMK",
-    "Av mariategui 446, Jesús María, Lima - 15072"
-  )
+  new Proveedor("23060002", "20140400000", "JMK", "Av mariategui 446, Jesús María, Lima - 15072")
 );
 proveedores.push(
-  new Proveedor(
-    "23060003",
-    "20140411111",
-    "CAH",
-    "Av mariategui 446, Jesús María, Lima - 15072"
-  )
+  new Proveedor("23060003", "20140411111", "CAH", "Av mariategui 446, Jesús María, Lima - 15072")
 );
 proveedores.push(
-  new Proveedor(
-    "23060004",
-    "20140422222",
-    "AYM",
-    "Av mariategui 446, Jesús María, Lima - 15072"
-  )
+  new Proveedor("23060004", "20140422222", "AYM", "Av mariategui 446, Jesús María, Lima - 15072")
 );
 proveedores.push(
   new Proveedor(
@@ -50,20 +34,10 @@ proveedores.push(
   )
 );
 proveedores.push(
-  new Proveedor(
-    "23060006",
-    "20140444444",
-    "KyC",
-    "Av mariategui 446, Jesús María, Lima - 15072"
-  )
+  new Proveedor("23060006", "20140444444", "KyC", "Av mariategui 446, Jesús María, Lima - 15072")
 );
 proveedores.push(
-  new Proveedor(
-    "23060007",
-    "20140455555",
-    "Brimax",
-    "Av mariategui 446, Jesús María, Lima - 15072"
-  )
+  new Proveedor("23060007", "20140455555", "Brimax", "Av mariategui 446, Jesús María, Lima - 15072")
 );
 proveedores.push(
   new Proveedor(
@@ -82,21 +56,19 @@ proveedores.push(
   )
 );
 
-
-
 class Rol {
-  constructor(id_rol, nombre_rol, desc_rol) {
+  constructor(id_rol, nombre_rol, desc_rol, level) {
     (this.id_rol = id_rol),
       (this.nombre_rol = nombre_rol),
-      (this.desc_rol = desc_rol);
+      (this.desc_rol = desc_rol),
+      (this.level = level);
   }
 }
 let roles = [];
-roles.push(new Rol("23060001", "Administrador", "All Access"));
-roles.push(new Rol("23060002", "Operador", "Tiene acceso solo al punto de venta"));
+roles.push(new Rol("23060001", "God", "All Access", 0));
+roles.push(new Rol("23060002", "Admin", "Back Office", 1));
+roles.push(new Rol("23060003", "Operador", "Tiene acceso solo al punto de venta", 2));
 
-
- 
 class Usuario {
   constructor(id_usuario, nombre_usuario, pass_usuario, id_rol) {
     (this.id_usuario = id_usuario),
@@ -106,11 +78,8 @@ class Usuario {
   }
 }
 let usuarios = [];
-usuarios.push(new Usuario("23060001", "cjjc", "123456", "23060001"));
-usuarios.push(new Usuario("23060002", "emily", "987654", "23060002"));
-
-
-
+usuarios.push(new Usuario("23060001", "hanna", "000000", "23060001"));
+usuarios.push(new Usuario("23060002", "christian", "123456", "23060002"));
+usuarios.push(new Usuario("23060003", "emily", "987654", "23060003"));
 
 module.exports = { proveedores, roles, usuarios };
- */

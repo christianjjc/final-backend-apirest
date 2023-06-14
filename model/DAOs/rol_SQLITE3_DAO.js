@@ -36,29 +36,24 @@ class RolSQLITE3 extends RolesBaseDAO {
   getRoles = async (id_rol) => {
     try {
       if (id_rol) {
-        const rows = await this._db
-          .select("*")
-          .from("roles")
-          .where("id_rol", id_rol);
+        const rows = await this._db.select("*").from("roles").where("id_rol", id_rol);
         const roles = rows.map((row) => {
           return {
             id_rol: row["id_rol"],
             nombre_rol: row["nombre_rol"],
             desc_rol: row["desc_rol"],
+            level: row["level"],
           };
         });
         return roles;
       } else {
-        const rows = await this._db
-          .select("*")
-          .from("roles")
-          .limit(100)
-          .orderBy("id_rol", "asc");
+        const rows = await this._db.select("*").from("roles").limit(100).orderBy("id_rol", "asc");
         const roles = rows.map((row) => {
           return {
             id_rol: row["id_rol"],
             nombre_rol: row["nombre_rol"],
             desc_rol: row["desc_rol"],
+            level: row["level"],
           };
         });
         return roles;
@@ -79,12 +74,10 @@ class RolSQLITE3 extends RolesBaseDAO {
 
   updateRol = async (obj) => {
     try {
-      const rows = await this._db("roles")
-        .where("id_rol", "=", obj.id_rol)
-        .update({
-          nombre_rol: obj.nombre_rol,
-          desc_rol: obj.desc_rol,
-        });
+      const rows = await this._db("roles").where("id_rol", "=", obj.id_rol).update({
+        nombre_rol: obj.nombre_rol,
+        desc_rol: obj.desc_rol,
+      });
       return rows;
     } catch (error) {
       throw new Error(error);

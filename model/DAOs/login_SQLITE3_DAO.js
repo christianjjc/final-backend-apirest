@@ -32,6 +32,7 @@ class LoginSQLITE3 {
           id_rol: row["id_rol"],
           nombre_rol: row["nombre_rol"],
           desc_rol: row["desc_rol"],
+          level: row["level"],
         };
       });
       return usuarios;
