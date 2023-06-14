@@ -19,7 +19,9 @@ const crearTabla = async (connection, nombreTabla) => {
             table.string("ruc", 11),
             table.string("razon_social", 250),
             table.string("direccion", 500),
-            table.string("telefono", 30);
+            table.string("telefono", 30),
+            table.timestamp("created_at").defaultTo(knex.fn.now()),
+            table.timestamp("updated_at").defaultTo(knex.fn.now());
         })
         .then(() => {
           console.log("Tabla proveedores creada con éxito");
@@ -37,8 +39,10 @@ const crearTabla = async (connection, nombreTabla) => {
         .createTable(nombreTabla, (table) => {
           table.string("id_rol", 8).primary().notNullable().unique(),
             table.string("nombre_rol", 250),
-            table.string("desc_rol", 500);
-          table.integer("level");
+            table.string("desc_rol", 500),
+            table.integer("level"),
+            table.timestamp("created_at").defaultTo(knex.fn.now()),
+            table.timestamp("updated_at").defaultTo(knex.fn.now());
         })
         .then(() => {
           console.log("Tabla roles creada con éxito");
@@ -57,7 +61,9 @@ const crearTabla = async (connection, nombreTabla) => {
           table.string("id_usuario", 8).primary().notNullable().unique(),
             table.string("nombre_usuario", 500),
             table.string("pass_usuario", 500),
-            table.string("id_rol").references("roles.id_rol");
+            table.string("id_rol").references("roles.id_rol"),
+            table.timestamp("created_at").defaultTo(knex.fn.now()),
+            table.timestamp("updated_at").defaultTo(knex.fn.now());
         })
         .then(() => {
           console.log("Tabla usuarios creada con éxito");
@@ -89,10 +95,17 @@ const insertarRegs = async (tabla, array) => {
     });
 };
 
-//crearTabla(knex, "proveedores");
-//crearTabla(knex, "roles");
-//crearTabla(knex, "usuarios");
+const crea = async () => {
+  //await crearTabla(knex, "proveedores");
+  //await crearTabla(knex, "roles");
+  //await crearTabla(knex, "usuarios");
+};
 
-//insertarRegs("proveedores", proveedores);
-//insertarRegs("roles", roles);
-//insertarRegs("usuarios", usuarios);
+const inserta = async () => {
+  //await insertarRegs("proveedores", proveedores);
+  //await insertarRegs("roles", roles);
+  //await insertarRegs("usuarios", usuarios);
+};
+
+//crea();
+//inserta();

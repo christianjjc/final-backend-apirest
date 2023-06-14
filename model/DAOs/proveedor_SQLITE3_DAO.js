@@ -1,6 +1,7 @@
 import ProveedoresBaseDAO from "./proveedor_Base_DAO.js";
 import knex from "knex";
 import config from "../../config.js";
+import moment from "moment";
 
 class ProveedorSQLITE3 extends ProveedoresBaseDAO {
   constructor() {
@@ -90,6 +91,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
           razon_social: obj.razon_social,
           direccion: obj.direccion,
           telefono: obj.telefono,
+          updated_at: moment().format("YYYY-MM-DD HH:mm:ss"),
         });
       return rows;
     } catch (error) {
