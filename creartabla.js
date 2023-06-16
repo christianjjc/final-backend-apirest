@@ -20,6 +20,7 @@ const crearTabla = async (connection, nombreTabla) => {
             table.string("razon_social", 250),
             table.string("direccion", 500),
             table.string("telefono", 30),
+            table.string("que_vende", 1000),
             table.timestamp("created_at").defaultTo(knex.fn.now()),
             table.timestamp("updated_at").defaultTo(knex.fn.now());
         })
@@ -102,7 +103,7 @@ const crea = async () => {
 };
 
 const inserta = async () => {
-  //await insertarRegs("proveedores", proveedores);
+  await insertarRegs("proveedores", proveedores);
   //await insertarRegs("roles", roles);
   //await insertarRegs("usuarios", usuarios);
 };

@@ -9,7 +9,7 @@ class ProveedorControlador {
   getProveedores = async (req, res) => {
     const { id } = req.params;
     try {
-      let proveedores = await this.proveedorApi.getProveedores(id);
+      const proveedores = await this.proveedorApi.getProveedores(id);
       return res.send(proveedores);
     } catch (error) {
       throw new Error(error);
@@ -19,8 +19,8 @@ class ProveedorControlador {
   deleteProveedor = async (req, res) => {
     const { body } = req;
     try {
-      let proveedores = await this.proveedorApi.deleteProveedor(body.id_proveedor);
-      return res.send("Proveedor Eliminado: " + body.id_proveedor);
+      const eliminados = await this.proveedorApi.deleteProveedor(body.id_proveedor);
+      return res.send({ eliminados });
     } catch (error) {
       throw new Error(error);
     }
@@ -29,8 +29,8 @@ class ProveedorControlador {
   updateProveedor = async (req, res) => {
     const { body } = req;
     try {
-      let proveedor = await this.proveedorApi.updateProveedor(body);
-      return res.send({ Resultado_Actualización: proveedor });
+      const proveedor = await this.proveedorApi.updateProveedor(body);
+      return res.send(proveedor);
     } catch (error) {
       throw new Error(error);
     }

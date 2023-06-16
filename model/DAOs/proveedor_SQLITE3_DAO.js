@@ -31,11 +31,19 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
             razon_social: row["razon_social"],
             direccion: row["direccion"],
             telefono: row["telefono"],
+            que_vende: row["que_vende"],
           };
         });
         return proveedor;
       } else {
-        const rows = await this._db.select("*").from("proveedores").limit(100).orderBy("razon_social", "asc");
+        const rows = await this._db
+          .select("*")
+          .from("proveedores")
+          //.where("razon_social", "like", `%${searchData}%`)
+          //.orWhere("ruc", "like", `%${searchData}%`)
+          //.orWhere("que_vende", "like", `%${searchData}%`)
+          .limit(100)
+          .orderBy("razon_social", "asc");
         const proveedores = rows.map((row) => {
           return {
             id_proveedor: row["id_proveedor"],
@@ -43,6 +51,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
             razon_social: row["razon_social"],
             direccion: row["direccion"],
             telefono: row["telefono"],
+            que_vende: row["que_vende"],
           };
         });
         return proveedores;
@@ -84,6 +93,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
           razon_social: obj.razon_social,
           direccion: obj.direccion,
           telefono: obj.telefono,
+          que_vende: obj.que_vende,
           updated_at: moment().format("YYYY-MM-DD HH:mm:ss"),
         });
       return rows;
@@ -97,7 +107,8 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
       const rows = await this._db("proveedores").where("id_proveedor", "=", id_proveedor).del();
       return rows;
     } catch (error) {
-      throw new Error(error);
+      //throw new Error(error);
+      console.error("errro dao -----> ", error);
     }
   };
 }
