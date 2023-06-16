@@ -14,7 +14,10 @@ class ProveedorApi {
   async saveProveedor(obj) {
     const pasa = ProveedorApi.asegurarProveedorValida(obj, true);
     if (pasa == true) {
-      return await this.proveedoresDAO.saveProveedor(obj);
+      return {
+        error: false,
+        ...(await this.proveedoresDAO.saveProveedor(obj)),
+      };
     } else {
       return pasa;
     }
@@ -45,9 +48,11 @@ class ProveedorApi {
       /*      throw new Error(
         "El registro posee un formato invalido o faltan datos: " +
           error.details[0].message); */
+
       return {
-        "ERROR!!!": "El registro posee un formato invalido o faltan datos: ",
-        detalle: error.details[0].message,
+        error: true,
+        mensaje: "El registro posee un formato invalido y/o faltan datos: ",
+        detalle_error: error.details[0].message,
       };
     }
   }

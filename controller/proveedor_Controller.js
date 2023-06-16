@@ -43,7 +43,7 @@ class ProveedorControlador {
       const nuevoId = UtilidadesCj.generarID(8, result.id_proveedor);
       const registro = { id_proveedor: nuevoId, ...body };
       let proveedor = await this.proveedorApi.saveProveedor(registro);
-      return res.send({ Resultado_Registro: proveedor });
+      return res.send(proveedor);
     } catch (error) {
       throw new Error(error);
     }
