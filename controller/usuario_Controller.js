@@ -7,9 +7,9 @@ class UsuarioControlador {
   }
 
   getUsuarios = async (req, res) => {
-    const { body } = req;
+    const { id } = req.params;
     try {
-      let usuarios = await this.usuarioApi.getUsuarios(body.id_usuario);
+      let usuarios = await this.usuarioApi.getUsuarios(id);
       return res.send(usuarios);
     } catch (error) {
       throw new Error(error);
@@ -39,9 +39,7 @@ class UsuarioControlador {
   saveUsuario = async (req, res) => {
     const { body } = req;
     try {
-      const result = await this.usuarioApi.getIdUsuario(
-        UtilidadesCj.getAnoMes()
-      );
+      const result = await this.usuarioApi.getIdUsuario(UtilidadesCj.getAnoMes());
       const nuevoId = UtilidadesCj.generarID(8, result.id_usuario);
       const registro = { id_usuario: nuevoId, ...body };
       let usuario = await this.usuarioApi.saveUsuario(registro);
@@ -50,7 +48,5 @@ class UsuarioControlador {
       throw new Error(error);
     }
   };
-
-
 }
 export default UsuarioControlador;

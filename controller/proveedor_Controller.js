@@ -7,9 +7,9 @@ class ProveedorControlador {
   }
 
   getProveedores = async (req, res) => {
-    const { body } = req;
+    const { id } = req.params;
     try {
-      let proveedores = await this.proveedorApi.getProveedores(body.id_proveedor);
+      let proveedores = await this.proveedorApi.getProveedores(id);
       return res.send(proveedores);
     } catch (error) {
       throw new Error(error);
@@ -39,9 +39,7 @@ class ProveedorControlador {
   saveProveedor = async (req, res) => {
     const { body } = req;
     try {
-      const result = await this.proveedorApi.getIdProveedor(
-        UtilidadesCj.getAnoMes()
-      );
+      const result = await this.proveedorApi.getIdProveedor(UtilidadesCj.getAnoMes());
       const nuevoId = UtilidadesCj.generarID(8, result.id_proveedor);
       const registro = { id_proveedor: nuevoId, ...body };
       let proveedor = await this.proveedorApi.saveProveedor(registro);

@@ -74,10 +74,14 @@ class RolSQLITE3 extends RolesBaseDAO {
 
   updateRol = async (obj) => {
     try {
-      const rows = await this._db("roles").where("id_rol", "=", obj.id_rol).update({
-        nombre_rol: obj.nombre_rol,
-        desc_rol: obj.desc_rol,
-      });
+      const rows = await this._db("roles")
+        .where("id_rol", "=", obj.id_rol)
+        .update({
+          nombre_rol: obj.nombre_rol,
+          desc_rol: obj.desc_rol,
+          level: obj.level,
+          updated_at: moment().format("YYYY-MM-DD HH:mm:ss"),
+        });
       return rows;
     } catch (error) {
       throw new Error(error);

@@ -23,10 +23,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
   getProveedores = async (id_proveedor) => {
     try {
       if (id_proveedor) {
-        const rows = await this._db
-          .select("*")
-          .from("proveedores")
-          .where("id_proveedor", id_proveedor);
+        const rows = await this._db.select("*").from("proveedores").where("id_proveedor", id_proveedor);
         const proveedor = rows.map((row) => {
           return {
             id_proveedor: row["id_proveedor"],
@@ -38,11 +35,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
         });
         return proveedor;
       } else {
-        const rows = await this._db
-          .select("*")
-          .from("proveedores")
-          .limit(100)
-          .orderBy("razon_social", "asc");
+        const rows = await this._db.select("*").from("proveedores").limit(100).orderBy("razon_social", "asc");
         const proveedores = rows.map((row) => {
           return {
             id_proveedor: row["id_proveedor"],

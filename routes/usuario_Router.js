@@ -9,8 +9,9 @@ class UsuarioRouter {
 
   start() {
     router.get("/", this.usuarioControlador.getUsuarios);
-    router.post("/",this.usuarioControlador.saveUsuario);
-    router.put("/",this.usuarioControlador.updateUsuario);
+    router.get("/:id", this.usuarioControlador.getUsuarios);
+    router.post("/", this.usuarioControlador.saveUsuario);
+    router.put("/", this.usuarioControlador.updateUsuario);
     router.delete("/", this.usuarioControlador.deleteUsuario);
     return router;
   }

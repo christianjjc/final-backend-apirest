@@ -7,9 +7,9 @@ class RolControlador {
   }
 
   getRoles = async (req, res) => {
-    const { body } = req;
+    const { id } = req.params;
     try {
-      let roles = await this.rolApi.getRoles(body.id_rol);
+      let roles = await this.rolApi.getRoles(id);
       return res.send(roles);
     } catch (error) {
       throw new Error(error);
@@ -39,9 +39,7 @@ class RolControlador {
   saveRol = async (req, res) => {
     const { body } = req;
     try {
-      const result = await this.rolApi.getIdRol(
-        UtilidadesCj.getAnoMes()
-      );
+      const result = await this.rolApi.getIdRol(UtilidadesCj.getAnoMes());
       const nuevoId = UtilidadesCj.generarID(8, result.id_rol);
       const registro = { id_rol: nuevoId, ...body };
       let rol = await this.rolApi.saveRol(registro);
@@ -50,7 +48,5 @@ class RolControlador {
       throw new Error(error);
     }
   };
-
-
 }
 export default RolControlador;
