@@ -89,11 +89,14 @@ class UsuarioSQLITE3 extends UsuariosBaseDAO {
 
   updateUsuario = async (obj) => {
     try {
-      const rows = await this._db("usuarios").where("id_usuario", "=", obj.id_usuario).update({
-        nombre_usuario: obj.nombre_usuario,
-        pass_usuario: obj.pass_usuario,
-        id_rol: obj.id_rol,
-      });
+      const rows = await this._db("usuarios")
+        .where("id_usuario", "=", obj.id_usuario)
+        .update({
+          nombre_usuario: obj.nombre_usuario,
+          pass_usuario: obj.pass_usuario,
+          id_rol: obj.id_rol,
+          updated_at: moment().format("YYYY-MM-DD HH:mm:ss"),
+        });
       return rows;
     } catch (error) {
       throw new Error(error);
