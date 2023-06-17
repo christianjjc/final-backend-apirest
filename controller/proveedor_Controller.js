@@ -17,9 +17,9 @@ class ProveedorControlador {
   };
 
   getProveedoresAll = async (req, res) => {
-    const { valor } = req.params;
+    const { body } = req;
     try {
-      const proveedores = await this.proveedorApi.getProveedoresAll(valor);
+      const proveedores = await this.proveedorApi.getProveedoresAll(body.valor);
       return res.send(proveedores);
     } catch (error) {
       throw new Error(error);

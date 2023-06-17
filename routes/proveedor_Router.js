@@ -8,7 +8,7 @@ class ProveedorRouter {
   }
 
   start() {
-    router.get("/all/:valor", this.proveedorControlador.getProveedoresAll);
+    router.post("/all/", this.proveedorControlador.getProveedoresAll);
     router.get("/:id", this.proveedorControlador.getProveedores);
     router.post("/", this.proveedorControlador.saveProveedor);
     router.put("/", this.proveedorControlador.updateProveedor);
