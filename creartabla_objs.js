@@ -1,10 +1,11 @@
 class Proveedor {
-  constructor(id_proveedor, ruc, razon_social, direccion, telefono) {
+  constructor(id_proveedor, ruc, razon_social, direccion, telefono, que_vende) {
     (this.id_proveedor = id_proveedor),
       (this.ruc = ruc),
       (this.razon_social = razon_social),
       (this.direccion = direccion),
       (this.telefono = telefono);
+    this.que_vende = que_vende;
   }
 }
 
@@ -15,7 +16,8 @@ proveedores.push(
     "20140476545",
     "Moro SRL",
     "Av mariategui 446, Jesús María, Lima - 15072",
-    "999999999"
+    "999999999",
+    "que vende"
   )
 );
 proveedores.push(
@@ -24,7 +26,8 @@ proveedores.push(
     "20140400000",
     "JMK",
     "Av mariategui 446, Jesús María, Lima - 15072",
-    "999999999"
+    "999999999",
+    "que vende"
   )
 );
 proveedores.push(
@@ -33,7 +36,8 @@ proveedores.push(
     "20140411111",
     "CAH",
     "Av mariategui 446, Jesús María, Lima - 15072",
-    "999999999"
+    "999999999",
+    "que vende"
   )
 );
 proveedores.push(
@@ -42,16 +46,18 @@ proveedores.push(
     "20140422222",
     "AYM",
     "Av mariategui 446, Jesús María, Lima - 15072",
-    "999999999"
+    "999999999",
+    "que vende"
   )
 );
 proveedores.push(
   new Proveedor(
-    "23000005",
+    "23060005",
     "20140433333",
     "CORPECSAC",
     "Av mariategui 446, Jesús María, Lima - 15072",
-    "999999999"
+    "999999999",
+    "que vende"
   )
 );
 proveedores.push(
@@ -60,7 +66,8 @@ proveedores.push(
     "20140444444",
     "KyC",
     "Av mariategui 446, Jesús María, Lima - 15072",
-    "999999999"
+    "999999999",
+    "que vende"
   )
 );
 proveedores.push(
@@ -69,7 +76,8 @@ proveedores.push(
     "20140455555",
     "Brimax",
     "Av mariategui 446, Jesús María, Lima - 15072",
-    "999999999"
+    "999999999",
+    "que vende"
   )
 );
 proveedores.push(
@@ -78,7 +86,8 @@ proveedores.push(
     "20140466666",
     "EL puertito",
     "Av mariategui 446, Jesús María, Lima - 15072",
-    "999999999"
+    "999999999",
+    "que vende"
   )
 );
 proveedores.push(
@@ -87,16 +96,14 @@ proveedores.push(
     "20140477777",
     "El Moyomoyo",
     "Av mariategui 446, Jesús María, Lima - 15072",
-    "999999999"
+    "999999999",
+    "que vende"
   )
 );
 
 class Rol {
   constructor(id_rol, nombre_rol, desc_rol, level) {
-    (this.id_rol = id_rol),
-      (this.nombre_rol = nombre_rol),
-      (this.desc_rol = desc_rol),
-      (this.level = level);
+    (this.id_rol = id_rol), (this.nombre_rol = nombre_rol), (this.desc_rol = desc_rol), (this.level = level);
   }
 }
 let roles = [];

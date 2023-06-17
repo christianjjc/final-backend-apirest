@@ -24,9 +24,12 @@ class ProveedorApi {
   }
 
   async updateProveedor(obj) {
-    const pasa = ProveedorApi.asegurarProveedorValida(obj, false);
+    const pasa = ProveedorApi.asegurarProveedorValida(obj, true);
     if (pasa == true) {
-      return await this.proveedoresDAO.updateProveedor(obj);
+      return {
+        error: false,
+        ...(await this.proveedoresDAO.updateProveedor(obj)),
+      };
     } else {
       return pasa;
     }
@@ -36,8 +39,16 @@ class ProveedorApi {
     return await this.proveedoresDAO.getProveedores(id_proveedor);
   }
 
+  async getProveedoresAll(valor) {
+    return await this.proveedoresDAO.getProveedoresAll(valor);
+  }
+
   async deleteProveedor(id_proveedor) {
-    return await this.proveedoresDAO.deleteProveedor(id_proveedor);
+    try {
+      return await this.proveedoresDAO.deleteProveedor(id_proveedor);
+    } catch (error) {
+      return { errorApi: true, error: error };
+    }
   }
 
   static asegurarProveedorValida(proveedor, requerido) {
@@ -45,10 +56,6 @@ class ProveedorApi {
       Proveedor.validar(proveedor, requerido);
       return true;
     } catch (error) {
-      /*      throw new Error(
-        "El registro posee un formato invalido o faltan datos: " +
-          error.details[0].message); */
-
       return {
         error: true,
         mensaje: "El registro posee un formato invalido y/o faltan datos: ",
