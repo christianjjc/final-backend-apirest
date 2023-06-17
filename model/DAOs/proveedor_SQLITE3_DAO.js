@@ -22,40 +22,51 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
 
   getProveedores = async (id_proveedor) => {
     try {
-      if (id_proveedor) {
-        const rows = await this._db.select("*").from("proveedores").where("id_proveedor", id_proveedor);
-        const proveedor = rows.map((row) => {
-          return {
-            id_proveedor: row["id_proveedor"],
-            ruc: row["ruc"],
-            razon_social: row["razon_social"],
-            direccion: row["direccion"],
-            telefono: row["telefono"],
-            que_vende: row["que_vende"],
-          };
-        });
-        return proveedor;
-      } else {
-        const rows = await this._db
+      const rows = await this._db.select("*").from("proveedores").where("id_proveedor", id_proveedor);
+      const proveedor = rows.map((row) => {
+        return {
+          id_proveedor: row["id_proveedor"],
+          ruc: row["ruc"],
+          razon_social: row["razon_social"],
+          direccion: row["direccion"],
+          telefono: row["telefono"],
+          que_vende: row["que_vende"],
+        };
+      });
+      return proveedor;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  getProveedoresAll = async (valor) => {
+    try {
+      let rows = [];
+      if (valor != "") {
+        console.log("valor lleno---> ", valor);
+        rows = await this._db
           .select("*")
           .from("proveedores")
-          //.where("razon_social", "like", `%${searchData}%`)
-          //.orWhere("ruc", "like", `%${searchData}%`)
-          //.orWhere("que_vende", "like", `%${searchData}%`)
+          .where("razon_social", "like", `%${valor}%`)
+          .orWhere("ruc", "like", `%${valor}%`)
+          .orWhere("que_vende", "like", `%${valor}%`)
           .limit(100)
           .orderBy("razon_social", "asc");
-        const proveedores = rows.map((row) => {
-          return {
-            id_proveedor: row["id_proveedor"],
-            ruc: row["ruc"],
-            razon_social: row["razon_social"],
-            direccion: row["direccion"],
-            telefono: row["telefono"],
-            que_vende: row["que_vende"],
-          };
-        });
-        return proveedores;
+      } else {
+        console.log("valor vacio---> ", valor);
+        rows = await this._db.select("*").from("proveedores").limit(100).orderBy("razon_social", "asc");
       }
+      const proveedores = rows.map((row) => {
+        return {
+          id_proveedor: row["id_proveedor"],
+          ruc: row["ruc"],
+          razon_social: row["razon_social"],
+          direccion: row["direccion"],
+          telefono: row["telefono"],
+          que_vende: row["que_vende"],
+        };
+      });
+      return proveedores;
     } catch (error) {
       throw new Error(error);
     }

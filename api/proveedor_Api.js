@@ -39,6 +39,10 @@ class ProveedorApi {
     return await this.proveedoresDAO.getProveedores(id_proveedor);
   }
 
+  async getProveedoresAll(valor) {
+    return await this.proveedoresDAO.getProveedoresAll(valor);
+  }
+
   async deleteProveedor(id_proveedor) {
     try {
       return await this.proveedoresDAO.deleteProveedor(id_proveedor);

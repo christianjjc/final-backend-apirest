@@ -16,6 +16,16 @@ class ProveedorControlador {
     }
   };
 
+  getProveedoresAll = async (req, res) => {
+    const { valor } = req.params;
+    try {
+      const proveedores = await this.proveedorApi.getProveedoresAll(valor);
+      return res.send(proveedores);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   deleteProveedor = async (req, res) => {
     const { body } = req;
     try {
