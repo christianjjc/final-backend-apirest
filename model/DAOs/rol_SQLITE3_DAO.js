@@ -1,6 +1,7 @@
 import RolesBaseDAO from "./rol_Base_DAO.js";
 import knex from "knex";
 import config from "../../config.js";
+import moment from "moment";
 
 class RolSQLITE3 extends RolesBaseDAO {
   constructor() {
@@ -35,29 +36,39 @@ class RolSQLITE3 extends RolesBaseDAO {
 
   getRoles = async (id_rol) => {
     try {
-      if (id_rol) {
-        const rows = await this._db.select("*").from("roles").where("id_rol", id_rol);
-        const roles = rows.map((row) => {
-          return {
-            id_rol: row["id_rol"],
-            nombre_rol: row["nombre_rol"],
-            desc_rol: row["desc_rol"],
-            level: row["level"],
-          };
-        });
-        return roles;
-      } else {
-        const rows = await this._db.select("*").from("roles").limit(100).orderBy("id_rol", "asc");
-        const roles = rows.map((row) => {
-          return {
-            id_rol: row["id_rol"],
-            nombre_rol: row["nombre_rol"],
-            desc_rol: row["desc_rol"],
-            level: row["level"],
-          };
-        });
-        return roles;
-      }
+      const rows = await this._db.select("*").from("roles").where("id_rol", id_rol);
+      const roles = rows.map((row) => {
+        return {
+          id_rol: row["id_rol"],
+          nombre_rol: row["nombre_rol"],
+          desc_rol: row["desc_rol"],
+          level: row["level"],
+        };
+      });
+      return roles;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  getRolesAll = async (valor) => {
+    try {
+      const rows = await this._db
+        .select("*")
+        .from("roles")
+        .where("nombre_rol", "like", `%${valor}%`)
+        .orWhere("desc_rol", "like", `%${valor}%`)
+        .limit(100)
+        .orderBy("id_rol", "asc");
+      const roles = rows.map((row) => {
+        return {
+          id_rol: row["id_rol"],
+          nombre_rol: row["nombre_rol"],
+          desc_rol: row["desc_rol"],
+          level: row["level"],
+        };
+      });
+      return roles;
     } catch (error) {
       throw new Error(error);
     }
@@ -93,7 +104,8 @@ class RolSQLITE3 extends RolesBaseDAO {
       const rows = await this._db("roles").where("id_rol", "=", id_rol).del();
       return rows;
     } catch (error) {
-      throw new Error(error);
+      //throw new Error(error);
+      console.error("error dao -----> ", error);
     }
   };
 }
