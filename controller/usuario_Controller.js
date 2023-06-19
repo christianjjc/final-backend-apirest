@@ -16,11 +16,21 @@ class UsuarioControlador {
     }
   };
 
+  getUsuariosAll = async (req, res) => {
+    const { body } = req;
+    try {
+      let usuarios = await this.usuarioApi.getUsuariosAll(body.valor);
+      return res.send(usuarios);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   deleteUsuario = async (req, res) => {
     const { body } = req;
     try {
-      let usuarios = await this.usuarioApi.deleteUsuario(body.id_usuario);
-      return res.send("Usuario Eliminado: " + usuarios);
+      let eliminados = await this.usuarioApi.deleteUsuario(body.id_usuario);
+      return res.send({ eliminados });
     } catch (error) {
       throw new Error(error);
     }
@@ -30,7 +40,7 @@ class UsuarioControlador {
     const { body } = req;
     try {
       let usuario = await this.usuarioApi.updateUsuario(body);
-      return res.send({ Resultado_Actualización: usuario });
+      return res.send(usuario);
     } catch (error) {
       throw new Error(error);
     }
@@ -43,7 +53,7 @@ class UsuarioControlador {
       const nuevoId = UtilidadesCj.generarID(8, result.id_usuario);
       const registro = { id_usuario: nuevoId, ...body };
       let usuario = await this.usuarioApi.saveUsuario(registro);
-      return res.send({ Resultado_Registro: usuario });
+      return res.send(usuario);
     } catch (error) {
       throw new Error(error);
     }

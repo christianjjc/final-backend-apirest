@@ -11,14 +11,13 @@ class UsuarioApi {
     return await this.usuariosDAO.getIdUsuario(anomes);
   }
 
-  async getUsuarios(id_usuario) {
-    return await this.usuariosDAO.getUsuarios(id_usuario);
-  }
-
   async saveUsuario(obj) {
     const pasa = UsuarioApi.asegurarUsuarioValida(obj, true);
     if (pasa == true) {
-      return await this.usuariosDAO.saveUsuario(obj);
+      return {
+        error: false,
+        ...(await this.usuariosDAO.saveUsuario(obj)),
+      };
     } else {
       return pasa;
     }
@@ -27,14 +26,29 @@ class UsuarioApi {
   async updateUsuario(obj) {
     const pasa = UsuarioApi.asegurarUsuarioValida(obj, false);
     if (pasa == true) {
-      return await this.usuariosDAO.updateUsuario(obj);
+      return {
+        error: false,
+        ...(await this.usuariosDAO.updateUsuario(obj)),
+      };
     } else {
       return pasa;
     }
   }
 
+  async getUsuarios(id_usuario) {
+    return await this.usuariosDAO.getUsuarios(id_usuario);
+  }
+
+  async getUsuariosAll(valor) {
+    return await this.usuariosDAO.getUsuariosAll(valor);
+  }
+
   async deleteUsuario(id_usuario) {
-    return await this.usuariosDAO.deleteUsuario(id_usuario);
+    try {
+      return await this.usuariosDAO.deleteUsuario(id_usuario);
+    } catch (error) {
+      return { errorApi: true, error: error };
+    }
   }
 
   static asegurarUsuarioValida(usuario, requerido) {
@@ -42,12 +56,10 @@ class UsuarioApi {
       Usuario.validar(usuario, requerido);
       return true;
     } catch (error) {
-      /*      throw new Error(
-            "El registro posee un formato invalido o faltan datos: " +
-              error.details[0].message); */
       return {
-        "ERROR!!!": "El registro posee un formato invalido o faltan datos: ",
-        detalle: error.details[0].message,
+        error: true,
+        mensaje: "El registro posee un formato invalido y/o faltan datos: ",
+        detalle_error: error.details[0].message,
       };
     }
   }
