@@ -9,7 +9,17 @@ class RolControlador {
   getRoles = async (req, res) => {
     const { id } = req.params;
     try {
-      let roles = await this.rolApi.getRoles(id);
+      const roles = await this.rolApi.getRoles(id);
+      return res.send(roles);
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  getRolesAll = async (req, res) => {
+    const { body } = req;
+    try {
+      const roles = await this.rolApi.getRolesAll(body.valor);
       return res.send(roles);
     } catch (error) {
       throw new Error(error);
@@ -30,7 +40,7 @@ class RolControlador {
     const { body } = req;
     try {
       let rol = await this.rolApi.updateRol(body);
-      return res.send({ Resultado_Actualización: rol });
+      return res.send(rol);
     } catch (error) {
       throw new Error(error);
     }
@@ -43,7 +53,7 @@ class RolControlador {
       const nuevoId = UtilidadesCj.generarID(8, result.id_rol);
       const registro = { id_rol: nuevoId, ...body };
       let rol = await this.rolApi.saveRol(registro);
-      return res.send({ Resultado_Registro: rol });
+      return res.send(rol);
     } catch (error) {
       throw new Error(error);
     }

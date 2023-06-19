@@ -15,10 +15,17 @@ class RolApi {
     return await this.rolesDAO.getRoles(id_rol);
   }
 
+  async getRolesAll(valor) {
+    return await this.rolesDAO.getRolesAll(valor);
+  }
+
   async saveRol(obj) {
     const pasa = RolApi.asegurarRolValida(obj, true);
     if (pasa == true) {
-      return await this.rolesDAO.saveRol(obj);
+      return {
+        error: false,
+        ...(await this.rolesDAO.saveRol(obj)),
+      };
     } else {
       return pasa;
     }
@@ -27,14 +34,21 @@ class RolApi {
   async updateRol(obj) {
     const pasa = RolApi.asegurarRolValida(obj, false);
     if (pasa == true) {
-      return await this.rolesDAO.updateRol(obj);
+      return {
+        error: false,
+        ...(await this.rolesDAO.updateRol(obj)),
+      };
     } else {
       return pasa;
     }
   }
 
   async deleteRol(id_rol) {
-    return await this.rolesDAO.deleteRol(id_rol);
+    try {
+      return await this.rolesDAO.deleteRol(id_rol);
+    } catch (error) {
+      return { errorApi: true, error: error };
+    }
   }
 
   static asegurarRolValida(rol, requerido) {

@@ -8,7 +8,7 @@ class RolRouter {
   }
 
   start() {
-    router.get("/", this.rolControlador.getRoles);
+    router.post("/all/", this.rolControlador.getRolesAll);
     router.get("/:id", this.rolControlador.getRoles);
     router.post("/", this.rolControlador.saveRol);
     router.put("/", this.rolControlador.updateRol);
