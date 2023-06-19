@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 class Rol {
-  constructor(id_rol, nombre_rol, desc_rol) {
+  constructor(id_rol, nombre_rol, desc_rol, level) {
     this.id_rol = id_rol;
     this.nombre_rol = nombre_rol;
     this.desc_rol = desc_rol;

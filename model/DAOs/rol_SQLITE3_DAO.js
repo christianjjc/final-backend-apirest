@@ -104,8 +104,7 @@ class RolSQLITE3 extends RolesBaseDAO {
       const rows = await this._db("roles").where("id_rol", "=", id_rol).del();
       return rows;
     } catch (error) {
-      //throw new Error(error);
-      console.error("error dao -----> ", error);
+      throw new Error(error);
     }
   };
 }

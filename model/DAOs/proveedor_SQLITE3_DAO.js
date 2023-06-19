@@ -20,6 +20,20 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
     })();
   }
 
+  getIdProveedor = async (anomes) => {
+    try {
+      let result = await this._db
+        .select("id_proveedor")
+        .from("proveedores")
+        .where("id_proveedor", "like", `${anomes}%`)
+        .orderBy("id_proveedor", "desc")
+        .first();
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
   getProveedores = async (id_proveedor) => {
     try {
       const rows = await this._db.select("*").from("proveedores").where("id_proveedor", id_proveedor);
@@ -65,20 +79,6 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
     }
   };
 
-  getIdProveedor = async (anomes) => {
-    try {
-      let result = await this._db
-        .select("id_proveedor")
-        .from("proveedores")
-        .where("id_proveedor", "like", `${anomes}%`)
-        .orderBy("id_proveedor", "desc")
-        .first();
-      return result;
-    } catch (error) {
-      throw new Error(error);
-    }
-  };
-
   saveProveedor = async (obj) => {
     try {
       await this._db("proveedores").insert(obj);
@@ -111,8 +111,7 @@ class ProveedorSQLITE3 extends ProveedoresBaseDAO {
       const rows = await this._db("proveedores").where("id_proveedor", "=", id_proveedor).del();
       return rows;
     } catch (error) {
-      //throw new Error(error);
-      console.error("errro dao -----> ", error);
+      throw new Error(error);
     }
   };
 }
