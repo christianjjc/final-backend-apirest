@@ -8,7 +8,7 @@ class UsuarioRouter {
   }
 
   start() {
-    router.get("/", this.usuarioControlador.getUsuarios);
+    router.post("/all/", this.usuarioControlador.getUsuariosAll);
     router.get("/:id", this.usuarioControlador.getUsuarios);
     router.post("/", this.usuarioControlador.saveUsuario);
     router.put("/", this.usuarioControlador.updateUsuario);

@@ -1,6 +1,7 @@
 import UsuariosBaseDAO from "./usuario_Base_DAO.js";
 import knex from "knex";
 import config from "../../config.js";
+import moment from "moment";
 
 class UsuarioSQLITE3 extends UsuariosBaseDAO {
   constructor() {
@@ -35,44 +36,49 @@ class UsuarioSQLITE3 extends UsuariosBaseDAO {
 
   getUsuarios = async (id_usuario) => {
     try {
-      if (id_usuario) {
-        const rows = await this._db
-          .select("*")
-          .from("usuarios")
-          .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
-          .where("id_usuario", id_usuario);
-        const usuarios = rows.map((row) => {
-          return {
-            id_usuario: row["id_usuario"],
-            nombre_usuario: row["nombre_usuario"],
-            pass_usuario: row["pass_usuario"],
-            id_rol: row["id_rol"],
-            nombre_rol: row["nombre_rol"],
-            desc_rol: row["desc_rol"],
-            level: row["level"],
-          };
-        });
-        return usuarios;
-      } else {
-        const rows = await this._db
-          .select("*")
-          .from("usuarios")
-          .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
-          .limit(100)
-          .orderBy("id_usuario", "asc");
-        const usuarios = rows.map((row) => {
-          return {
-            id_usuario: row["id_usuario"],
-            nombre_usuario: row["nombre_usuario"],
-            pass_usuario: row["pass_usuario"],
-            id_rol: row["id_rol"],
-            nombre_rol: row["nombre_rol"],
-            desc_rol: row["desc_rol"],
-            level: row["level"],
-          };
-        });
-        return usuarios;
-      }
+      const rows = await this._db
+        .select("*")
+        .from("usuarios")
+        .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
+        .where("id_usuario", id_usuario);
+      const usuario = rows.map((row) => {
+        return {
+          id_usuario: row["id_usuario"],
+          nombre_usuario: row["nombre_usuario"],
+          pass_usuario: row["pass_usuario"],
+          id_rol: row["id_rol"],
+          nombre_rol: row["nombre_rol"],
+          desc_rol: row["desc_rol"],
+          level: row["level"],
+        };
+      });
+      return usuario;
+    } catch (error) {
+      throw new Error(error);
+    }
+  };
+
+  getUsuariosAll = async (valor) => {
+    try {
+      const rows = await this._db
+        .select("*")
+        .from("usuarios")
+        .where("nombre_usuario", "like", `%${valor}%`)
+        .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
+        .limit(100)
+        .orderBy("id_usuario", "asc");
+      const usuarios = rows.map((row) => {
+        return {
+          id_usuario: row["id_usuario"],
+          nombre_usuario: row["nombre_usuario"],
+          pass_usuario: row["pass_usuario"],
+          id_rol: row["id_rol"],
+          nombre_rol: row["nombre_rol"],
+          desc_rol: row["desc_rol"],
+          level: row["level"],
+        };
+      });
+      return usuarios;
     } catch (error) {
       throw new Error(error);
     }

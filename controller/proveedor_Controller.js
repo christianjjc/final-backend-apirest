@@ -29,7 +29,7 @@ class ProveedorControlador {
   deleteProveedor = async (req, res) => {
     const { body } = req;
     try {
-      const eliminados = await this.proveedorApi.deleteProveedor(body.id_proveedor);
+      const eliminados = await this.proveedorApi.deleteProveedor(body.id);
       return res.send({ eliminados });
     } catch (error) {
       throw new Error(error);

@@ -56,12 +56,10 @@ class RolApi {
       Rol.validar(rol, requerido);
       return true;
     } catch (error) {
-      /*      throw new Error(
-            "El registro posee un formato invalido o faltan datos: " +
-              error.details[0].message); */
       return {
-        "ERROR!!!": "El registro posee un formato invalido o faltan datos: ",
-        detalle: error.details[0].message,
+        error: true,
+        mensaje: "El registro posee un formato invalido y/o faltan datos: ",
+        detalle_error: error.details[0].message,
       };
     }
   }
