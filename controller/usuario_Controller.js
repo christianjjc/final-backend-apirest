@@ -29,7 +29,7 @@ class UsuarioControlador {
   deleteUsuario = async (req, res) => {
     const { body } = req;
     try {
-      let eliminados = await this.usuarioApi.deleteUsuario(body.id_usuario);
+      let eliminados = await this.usuarioApi.deleteUsuario(body.id);
       return res.send({ eliminados });
     } catch (error) {
       throw new Error(error);

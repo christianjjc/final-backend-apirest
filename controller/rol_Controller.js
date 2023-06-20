@@ -29,7 +29,7 @@ class RolControlador {
   deleteRol = async (req, res) => {
     const { body } = req;
     try {
-      let eliminados = await this.rolApi.deleteRol(body.id_rol);
+      const eliminados = await this.rolApi.deleteRol(body.id);
       return res.send({ eliminados });
     } catch (error) {
       throw new Error(error);
