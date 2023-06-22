@@ -62,7 +62,7 @@ const crearTabla = async (connection, nombreTabla) => {
           table.string("id_usuario", 8).primary().notNullable().unique(),
             table.string("nombre_usuario", 500),
             table.string("pass_usuario", 500),
-            table.string("id_rol").references("roles.id_rol"),
+            table.string("id_rol").references("roles.id_rol").onDelete("RESTRICT"),
             table.timestamp("created_at").defaultTo(knex.fn.now()),
             table.timestamp("updated_at").defaultTo(knex.fn.now());
         })
@@ -99,13 +99,13 @@ const insertarRegs = async (tabla, array) => {
 const crea = async () => {
   //await crearTabla(knex, "proveedores");
   //await crearTabla(knex, "roles");
-  //await crearTabla(knex, "usuarios");
+  await crearTabla(knex, "usuarios");
 };
 
 const inserta = async () => {
-  await insertarRegs("proveedores", proveedores);
+  //await insertarRegs("proveedores", proveedores);
   //await insertarRegs("roles", roles);
-  //await insertarRegs("usuarios", usuarios);
+  await insertarRegs("usuarios", usuarios);
 };
 
 //crea();
