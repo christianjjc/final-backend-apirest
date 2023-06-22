@@ -1,12 +1,9 @@
-import knex from "knex";
-import config from "../../config.js";
-import glb_conn from "../../connection/connMysql.js";
 import dbInstance from "../../connection/connMysql.js";
 
 class LoginMYSQL {
   constructor() {
     this._db = dbInstance.getConnection();
-    console.log("instalnciamos conexion en login");
+    console.log("instanciamos conexion en login");
   }
 
   getUsuarios = async (obj) => {

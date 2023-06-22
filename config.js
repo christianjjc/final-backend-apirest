@@ -11,7 +11,7 @@ dotenv.config({
 export default {
   NODE_ENV: process.env.NODE_ENV || "development",
   HOST: process.env.HOST || "localhost",
-  PORT: process.env.PORT || "8080",
+  PORT_SERVER: process.env.PORT_SERVER || "8080",
   //SQLITE - MYSQL - POSTGRESS - FIREBASE - MONGO
   TIPO_PERSISTENCIA: process.env.TIPO_PERSISTENCIA,
   SQLITE3_PATH: process.env.SQLITE3_PATH,

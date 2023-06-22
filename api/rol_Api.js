@@ -47,7 +47,7 @@ class RolApi {
     try {
       return await this.rolesDAO.deleteRol(id_rol);
     } catch (error) {
-      return { errorApi: true, error: error };
+      return { errorApi: true, error };
     }
   }
 
