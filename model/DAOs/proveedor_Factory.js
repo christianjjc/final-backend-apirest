@@ -1,3 +1,4 @@
+import ProveedorMYSQL from "./proveedor_MYSQL_DAO.js";
 import ProveedorSQLITE3 from "./proveedor_SQLITE3_DAO.js";
 
 class ProveedoresFactoryDAO {
@@ -5,10 +6,8 @@ class ProveedoresFactoryDAO {
     switch (tipo) {
       case "SQLITE3":
         return new ProveedorSQLITE3();
-      case "OTRA BD":
-        return "OTRA BD";
-      default:
-        return new ProveedorSQLITE3();
+      case "MYSQL":
+        return new ProveedorMYSQL();
     }
   }
 }

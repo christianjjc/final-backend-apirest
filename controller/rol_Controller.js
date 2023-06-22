@@ -32,6 +32,7 @@ class RolControlador {
       const eliminados = await this.rolApi.deleteRol(body.id);
       return res.send({ eliminados });
     } catch (error) {
+      //return error;
       throw new Error(error);
     }
   };

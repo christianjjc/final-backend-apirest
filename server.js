@@ -18,29 +18,15 @@ app.use(express.urlencoded({ extended: true }));
 /** ------------ */
 const routerLogin = new LoginRouter();
 app.use("/", routerLogin.start());
-// const routerProveedor = new ProveedorRouter();
-// app.use("/proveedores", routerProveedor.start());
-// const routerRol = new RolRouter();
-// app.use("/roles", routerRol.start());
-// const routerUsuario = new UsuarioRouter();
-// app.use("/usuarios", routerUsuario.start());
+const routerProveedor = new ProveedorRouter();
+app.use("/proveedores", routerProveedor.start());
+const routerRol = new RolRouter();
+app.use("/roles", routerRol.start());
+const routerUsuario = new UsuarioRouter();
+app.use("/usuarios", routerUsuario.start());
 /** ------------ */
 
-function seleccionaPuerto() {
-  let puerto = "";
-  switch (config.TIPO_PERSISTENCIA) {
-    case "SQLITE3":
-      puerto = config.PORT;
-      break;
-    case "MYSQL":
-      puerto = config.MYSQL_PORT;
-      break;
-  }
-  return puerto;
-}
-
-//const PORT = seleccionaPuerto();
-const PORT = "8080";
+const PORT = config.PORT_SERVER;
 const server = app.listen(PORT, () => {
   console.log(`Servidor express escuchando en el puerto ${PORT} (${config.NODE_ENV} - ${config.TIPO_PERSISTENCIA})`);
 });
