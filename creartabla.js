@@ -1,19 +1,38 @@
 const { roles, usuarios, proveedores } = require("./creartabla_objs");
+const knex = require("knex");
 
-const knex = require("knex")({
-  client: "sqlite3",
-  connection: {
-    filename: "./db/ci.sqlite",
-  },
-  useNullAsDefault: true,
-});
+function conectaSQLITE3(conn) {
+  const db = conn({
+    client: "sqlite3",
+    connection: {
+      filename: "./db/ci.sqlite",
+    },
+    useNullAsDefault: true,
+  });
+  return db;
+}
 
-const crearTabla = async (connection, nombreTabla) => {
-  await connection.schema.dropTableIfExists(nombreTabla);
+function conectaMYSQL(conn) {
+  const db = conn({
+    client: "mysql",
+    connection: {
+      host: "localhost",
+      port: 3306,
+      user: "root",
+      password: "",
+      database: "ci",
+    },
+    useNullAsDefault: true,
+  });
+  return db;
+}
+
+const crearTabla = async (db, nombreTabla) => {
+  await db.schema.dropTableIfExists(nombreTabla);
 
   switch (nombreTabla) {
     case "proveedores":
-      connection.schema
+      db.schema
         .createTable(nombreTabla, (table) => {
           table.string("id_proveedor", 8).primary().notNullable().unique(),
             table.string("ruc", 11),
@@ -21,8 +40,8 @@ const crearTabla = async (connection, nombreTabla) => {
             table.string("direccion", 500),
             table.string("telefono", 30),
             table.string("que_vende", 1000),
-            table.timestamp("created_at").defaultTo(knex.fn.now()),
-            table.timestamp("updated_at").defaultTo(knex.fn.now());
+            table.timestamp("created_at").defaultTo(db.fn.now()),
+            table.timestamp("updated_at").defaultTo(db.fn.now());
         })
         .then(() => {
           console.log("Tabla proveedores creada con éxito");
@@ -32,18 +51,18 @@ const crearTabla = async (connection, nombreTabla) => {
           throw new Error(err);
         })
         .finally(() => {
-          knex.destroy();
+          db.destroy();
         });
       break;
     case "roles":
-      connection.schema
+      db.schema
         .createTable(nombreTabla, (table) => {
           table.string("id_rol", 8).primary().notNullable().unique(),
             table.string("nombre_rol", 250),
             table.string("desc_rol", 500),
             table.integer("level"),
-            table.timestamp("created_at").defaultTo(knex.fn.now()),
-            table.timestamp("updated_at").defaultTo(knex.fn.now());
+            table.timestamp("created_at").defaultTo(db.fn.now()),
+            table.timestamp("updated_at").defaultTo(db.fn.now());
         })
         .then(() => {
           console.log("Tabla roles creada con éxito");
@@ -53,18 +72,18 @@ const crearTabla = async (connection, nombreTabla) => {
           throw new Error(err);
         })
         .finally(() => {
-          knex.destroy();
+          db.destroy();
         });
       break;
     case "usuarios":
-      connection.schema
+      db.schema
         .createTable(nombreTabla, (table) => {
           table.string("id_usuario", 8).primary().notNullable().unique(),
             table.string("nombre_usuario", 500),
             table.string("pass_usuario", 500),
             table.string("id_rol").references("roles.id_rol").onDelete("RESTRICT"),
-            table.timestamp("created_at").defaultTo(knex.fn.now()),
-            table.timestamp("updated_at").defaultTo(knex.fn.now());
+            table.timestamp("created_at").defaultTo(db.fn.now()),
+            table.timestamp("updated_at").defaultTo(db.fn.now());
         })
         .then(() => {
           console.log("Tabla usuarios creada con éxito");
@@ -74,7 +93,7 @@ const crearTabla = async (connection, nombreTabla) => {
           throw new Error(err);
         })
         .finally(() => {
-          knex.destroy();
+          db.destroy();
         });
       break;
     default:
@@ -82,8 +101,8 @@ const crearTabla = async (connection, nombreTabla) => {
   }
 };
 
-const insertarRegs = async (tabla, array) => {
-  await knex(tabla) // Reemplaza 'mytable' con el nombre de tu tabla
+const insertarRegs = async (db, tabla, array) => {
+  await db(tabla) // Reemplaza 'mytable' con el nombre de tu tabla
     .insert(array)
     .then(() => {
       console.log("Registros insertados correctamente");
@@ -92,21 +111,37 @@ const insertarRegs = async (tabla, array) => {
       console.error("Error al insertar registros:", error);
     })
     .finally(() => {
-      knex.destroy(); // Cierra la conexión con la base de datos
+      db.destroy(); // Cierra la conexión con la base de datos
     });
 };
 
+/** SQLITE*/
 const crea = async () => {
-  //await crearTabla(knex, "proveedores");
-  //await crearTabla(knex, "roles");
-  await crearTabla(knex, "usuarios");
+  //await crearTabla(conectaSQLITE3(knex), "proveedores");
+  await crearTabla(conectaSQLITE3(knex), "roles");
+  //await crearTabla(conectaSQLITE3(knex), "usuarios");
 };
-
 const inserta = async () => {
-  //await insertarRegs("proveedores", proveedores);
-  //await insertarRegs("roles", roles);
-  await insertarRegs("usuarios", usuarios);
+  //await insertarRegs(conectaSQLITE3(knex), "proveedores", proveedores);
+  await insertarRegs(conectaSQLITE3(knex), "roles", roles);
+  //await insertarRegs(conectaSQLITE3(knex), "usuarios", usuarios);
 };
-
 //crea();
 //inserta();
+//.
+//.
+//.
+//.
+/** MYSQL */
+const creamysql = async () => {
+  //await crearTabla(conectaMYSQL(knex), "proveedores");
+  //await crearTabla(conectaMYSQL(knex), "roles");
+  //await crearTabla(conectaMYSQL(knex), "usuarios");
+};
+const insertamysql = async () => {
+  //await insertarRegs(conectaMYSQL(knex), "proveedores", proveedores);
+  //await insertarRegs(conectaMYSQL(knex), "roles", roles);
+  //await insertarRegs(conectaMYSQL(knex), "usuarios", usuarios);
+};
+//creamysql();
+//insertamysql();

@@ -5,8 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "set NODE_ENV=development&& set TIPO_PERSISTENCIA=SQLITE3&& node server.js",
-    "dw": "set NODE_ENV=development&& set TIPO_PERSISTENCIA=SQLITE3&& nodemon server.js"
+    "devsqlite": "set NODE_ENV=development&& set TIPO_PERSISTENCIA=SQLITE3&& node server.js",
+    "dwsqlite": "set NODE_ENV=development&& set TIPO_PERSISTENCIA=SQLITE3&& nodemon server.js",
+    "devmysql": "set NODE_ENV=development&& set TIPO_PERSISTENCIA=MYSQL&& node server.js",
+    "dwmysql": "set NODE_ENV=development&& set TIPO_PERSISTENCIA=MYSQL&& nodemon server.js"
   },
   "author": "Christian John Jiménez Calvo",
   "license": "ISC",
@@ -20,6 +22,7 @@
     "joi": "^17.9.2",
     "knex": "^2.4.2",
     "moment": "^2.29.4",
+    "mysql": "^2.18.1",
     "sqlite3": "^5.1.6"
   }
 }

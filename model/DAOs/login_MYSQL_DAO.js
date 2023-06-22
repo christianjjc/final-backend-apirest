@@ -1,24 +1,16 @@
 import knex from "knex";
 import config from "../../config.js";
+import glb_conn from "../../connection/connMysql.js";
+import dbInstance from "../../connection/connMysql.js";
 
-class LoginSQLITE3 {
+class LoginMYSQL {
   constructor() {
-    (async () => {
-      console.log("Conectando a db... SQLITE3");
-      const db = knex({
-        client: "sqlite3",
-        connection: {
-          filename: config.SQLITE3_PATH,
-        },
-        useNullAsDefault: true,
-      });
-      console.log("...conectado!");
-      this._db = db;
-    })();
+    this._db = dbInstance.getConnection();
+    console.log("instalnciamos conexion en login");
   }
 
   getUsuarios = async (obj) => {
-    console.log("aqui estamos SQLITEEEE");
+    console.log("aqui estamos MYSQL getuser");
     try {
       const rows = await this._db
         .select("*")
@@ -43,4 +35,4 @@ class LoginSQLITE3 {
   };
 }
 
-export default LoginSQLITE3;
+export default LoginMYSQL;
