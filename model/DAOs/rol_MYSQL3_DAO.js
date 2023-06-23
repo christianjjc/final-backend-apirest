@@ -10,22 +10,26 @@ class RolMYSQL extends RolesBaseDAO {
 
   getIdRol = async (anomes) => {
     try {
-      let result = await this._db
+      const result = await this._db
         .select("id_rol")
         .from("roles")
         .where("id_rol", "like", `${anomes}%`)
         .orderBy("id_rol", "desc")
         .first();
-      return result;
+      if (result) {
+        return result;
+      } else {
+        return { id_rol: `${anomes}0000` };
+      }
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  getRoles = async (id_rol) => {
+  getRoles = async (id) => {
     try {
-      const rows = await this._db.select("*").from("roles").where("id_rol", id_rol);
-      const roles = rows.map((row) => {
+      const rows = await this._db.select("*").from("roles").where("id_rol", id);
+      const result = rows.map((row) => {
         return {
           id_rol: row["id_rol"],
           nombre_rol: row["nombre_rol"],
@@ -33,7 +37,7 @@ class RolMYSQL extends RolesBaseDAO {
           level: row["level"],
         };
       });
-      return roles;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
@@ -48,7 +52,7 @@ class RolMYSQL extends RolesBaseDAO {
         .orWhere("desc_rol", "like", `%${valor}%`)
         .limit(100)
         .orderBy("id_rol", "asc");
-      const roles = rows.map((row) => {
+      const result = rows.map((row) => {
         return {
           id_rol: row["id_rol"],
           nombre_rol: row["nombre_rol"],
@@ -56,7 +60,7 @@ class RolMYSQL extends RolesBaseDAO {
           level: row["level"],
         };
       });
-      return roles;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
@@ -87,9 +91,9 @@ class RolMYSQL extends RolesBaseDAO {
     }
   };
 
-  deleteRol = async (id_rol) => {
+  deleteRol = async (id) => {
     try {
-      const rows = await this._db("roles").where("id_rol", "=", id_rol).del();
+      const rows = await this._db("roles").where("id_rol", "=", id).del();
       return rows;
     } catch (error) {
       if (error.errno === 1451) {

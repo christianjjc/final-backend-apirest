@@ -10,7 +10,7 @@ class UndmedMYSQL extends UndmedBaseDAO {
 
   getIdUndmed = async (anomes) => {
     try {
-      let result = await this._db
+      const result = await this._db
         .select("id_undmed")
         .from("undmed")
         .where("id_undmed", "like", `${anomes}%`)
@@ -26,17 +26,17 @@ class UndmedMYSQL extends UndmedBaseDAO {
     }
   };
 
-  getUndmed = async (id_undmed) => {
+  getUndmed = async (id) => {
     try {
-      const rows = await this._db.select("*").from("undmed").where("id_undmed", id_undmed);
-      const undmed = rows.map((row) => {
+      const rows = await this._db.select("*").from("undmed").where("id_undmed", id);
+      const result = rows.map((row) => {
         return {
           id_undmed: row["id_undmed"],
           nombre_undmed: row["nombre_undmed"],
           abr: row["abr"],
         };
       });
-      return undmed;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
@@ -50,14 +50,14 @@ class UndmedMYSQL extends UndmedBaseDAO {
         .where("nombre_undmed", "like", `%${valor}%`)
         .limit(100)
         .orderBy("id_undmed", "asc");
-      const undmed = rows.map((row) => {
+      const result = rows.map((row) => {
         return {
           id_undmed: row["id_undmed"],
           nombre_undmed: row["nombre_undmed"],
           abr: row["abr"],
         };
       });
-      return undmed;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
@@ -87,9 +87,9 @@ class UndmedMYSQL extends UndmedBaseDAO {
     }
   };
 
-  deleteUndmed = async (id_undmed) => {
+  deleteUndmed = async (id) => {
     try {
-      const rows = await this._db("undmed").where("id_undmed", "=", id_undmed).del();
+      const rows = await this._db("undmed").where("id_undmed", "=", id).del();
       return rows;
     } catch (error) {
       if (error.errno === 1451) {

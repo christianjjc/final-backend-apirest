@@ -6,6 +6,7 @@ import RolRouter from "./routes/rol_Router.js";
 import UsuarioRouter from "./routes/usuario_Router.js";
 import LoginRouter from "./routes/login_Router.js";
 import UndmedRouter from "./routes/undmed_Router.js";
+import CatprodRouter from "./routes/catprod_Router.js";
 
 const app = express();
 if (config.NODE_ENV == "development") app.use(cors());
@@ -27,7 +28,8 @@ const routerUsuario = new UsuarioRouter();
 app.use("/usuarios", routerUsuario.start());
 const routerUndmed = new UndmedRouter();
 app.use("/undmed", routerUndmed.start());
-
+const routerCatprod = new CatprodRouter();
+app.use("/catprod", routerCatprod.start());
 /** ------------ */
 
 const PORT = config.PORT_SERVER;

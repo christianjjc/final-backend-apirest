@@ -10,22 +10,26 @@ class ProveedorMYSQL extends ProveedoresBaseDAO {
 
   getIdProveedor = async (anomes) => {
     try {
-      let result = await this._db
+      const result = await this._db
         .select("id_proveedor")
         .from("proveedores")
         .where("id_proveedor", "like", `${anomes}%`)
         .orderBy("id_proveedor", "desc")
         .first();
-      return result;
+      if (result) {
+        return result;
+      } else {
+        return { id_rol: `${anomes}0000` };
+      }
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  getProveedores = async (id_proveedor) => {
+  getProveedores = async (id) => {
     try {
-      const rows = await this._db.select("*").from("proveedores").where("id_proveedor", id_proveedor);
-      const proveedor = rows.map((row) => {
+      const rows = await this._db.select("*").from("proveedores").where("id_proveedor", id);
+      const result = rows.map((row) => {
         return {
           id_proveedor: row["id_proveedor"],
           ruc: row["ruc"],
@@ -35,7 +39,7 @@ class ProveedorMYSQL extends ProveedoresBaseDAO {
           que_vende: row["que_vende"],
         };
       });
-      return proveedor;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
@@ -51,7 +55,7 @@ class ProveedorMYSQL extends ProveedoresBaseDAO {
         .orWhere("que_vende", "like", `%${valor}%`)
         .limit(100)
         .orderBy("razon_social", "asc");
-      const proveedores = rows.map((row) => {
+      const result = rows.map((row) => {
         return {
           id_proveedor: row["id_proveedor"],
           ruc: row["ruc"],
@@ -61,7 +65,7 @@ class ProveedorMYSQL extends ProveedoresBaseDAO {
           que_vende: row["que_vende"],
         };
       });
-      return proveedores;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
@@ -94,9 +98,9 @@ class ProveedorMYSQL extends ProveedoresBaseDAO {
     }
   };
 
-  deleteProveedor = async (id_proveedor) => {
+  deleteProveedor = async (id) => {
     try {
-      const rows = await this._db("proveedores").where("id_proveedor", "=", id_proveedor).del();
+      const rows = await this._db("proveedores").where("id_proveedor", "=", id).del();
       return rows;
     } catch (error) {
       throw new Error(error);

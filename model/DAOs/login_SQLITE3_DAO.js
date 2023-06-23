@@ -25,7 +25,7 @@ class LoginSQLITE3 {
         .from("usuarios")
         .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
         .where({ nombre_usuario: obj.nombre_usuario, pass_usuario: obj.pass_usuario });
-      const usuarios = rows.map((row) => {
+      const result = rows.map((row) => {
         return {
           id_usuario: row["id_usuario"],
           nombre_usuario: row["nombre_usuario"],
@@ -36,7 +36,7 @@ class LoginSQLITE3 {
           level: row["level"],
         };
       });
-      return usuarios;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
