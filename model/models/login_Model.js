@@ -2,7 +2,8 @@ import Joi from "joi";
 
 class Login {
   constructor(nombre_usuario, pass_usuario) {
-    (this.nombre_usuario = nombre_usuario), (this.pass_usuario = pass_usuario);
+    this.nombre_usuario = nombre_usuario;
+    this.pass_usuario = pass_usuario;
   }
 
   equals(otroLogin) {
