@@ -5,7 +5,6 @@ import moment from "moment";
 class ProveedorMYSQL extends ProveedoresBaseDAO {
   constructor() {
     super();
-    console.log("instanciamos conexion en lista proveedor");
     this._db = dbInstance.getConnection();
   }
 

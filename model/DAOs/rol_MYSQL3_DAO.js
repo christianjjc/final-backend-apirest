@@ -5,7 +5,6 @@ import moment from "moment";
 class RolMYSQL extends RolesBaseDAO {
   constructor() {
     super();
-    console.log("instanciamos conexion en lista roles");
     this._db = dbInstance.getConnection();
   }
 

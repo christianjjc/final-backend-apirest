@@ -3,11 +3,9 @@ import dbInstance from "../../connection/connMysql.js";
 class LoginMYSQL {
   constructor() {
     this._db = dbInstance.getConnection();
-    console.log("instanciamos conexion en login");
   }
 
   getUsuarios = async (obj) => {
-    console.log("aqui estamos MYSQL getuser");
     try {
       const rows = await this._db
         .select("*")

@@ -5,7 +5,6 @@ import moment from "moment";
 class UsuarioMYSQL extends UsuariosBaseDAO {
   constructor() {
     super();
-    console.log("instanciamos conexion en lista usuarios");
     this._db = dbInstance.getConnection();
   }
 
