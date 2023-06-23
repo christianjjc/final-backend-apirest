@@ -35,17 +35,17 @@ class UsuarioApi {
     }
   }
 
-  async getUsuarios(id_usuario) {
-    return await this.usuariosDAO.getUsuarios(id_usuario);
+  async getUsuarios(id) {
+    return await this.usuariosDAO.getUsuarios(id);
   }
 
   async getUsuariosAll(valor) {
     return await this.usuariosDAO.getUsuariosAll(valor);
   }
 
-  async deleteUsuario(id_usuario) {
+  async deleteUsuario(id) {
     try {
-      return await this.usuariosDAO.deleteUsuario(id_usuario);
+      return await this.usuariosDAO.deleteUsuario(id);
     } catch (error) {
       return { errorApi: true, error: error };
     }

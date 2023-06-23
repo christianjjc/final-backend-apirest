@@ -33,7 +33,7 @@ class UsuarioMYSQL extends UsuariosBaseDAO {
         .from("usuarios")
         .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
         .where("id_usuario", id);
-      const usuario = rows.map((row) => {
+      const result = rows.map((row) => {
         return {
           id_usuario: row["id_usuario"],
           nombre_usuario: row["nombre_usuario"],
@@ -44,7 +44,7 @@ class UsuarioMYSQL extends UsuariosBaseDAO {
           level: row["level"],
         };
       });
-      return usuario;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
@@ -59,7 +59,7 @@ class UsuarioMYSQL extends UsuariosBaseDAO {
         .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
         .limit(100)
         .orderBy("id_usuario", "asc");
-      const usuarios = rows.map((row) => {
+      const result = rows.map((row) => {
         return {
           id_usuario: row["id_usuario"],
           nombre_usuario: row["nombre_usuario"],
@@ -70,7 +70,7 @@ class UsuarioMYSQL extends UsuariosBaseDAO {
           level: row["level"],
         };
       });
-      return usuarios;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
