@@ -13,7 +13,7 @@ class DataBase {
           password: config.MYSQL_PASSWORD,
           database: config.MYSQL_BD,
         },
-        //useNullAsDefault: true,
+        useNullAsDefault: true,
         pool: { min: 0, max: 10 },
       });
       DataBase.instance = this;

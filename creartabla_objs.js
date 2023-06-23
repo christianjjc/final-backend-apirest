@@ -124,4 +124,10 @@ usuarios.push(new Usuario("23060001", "hanna", "000000", "23060001"));
 usuarios.push(new Usuario("23060002", "christian", "123456", "23060002"));
 usuarios.push(new Usuario("23060003", "emily", "987654", "23060003"));
 
-module.exports = { proveedores, roles, usuarios };
+const exportarTablas = () => {
+  proveedores;
+  roles;
+  usuarios;
+};
+
+export { proveedores, roles, usuarios };
