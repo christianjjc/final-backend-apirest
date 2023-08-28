@@ -9,8 +9,8 @@ class UsuarioControlador {
   getUsuarios = async (req, res) => {
     const { id } = req.params;
     try {
-      let usuarios = await this.usuarioApi.getUsuarios(id);
-      return res.send(usuarios);
+      const result = await this.usuarioApi.getUsuarios(id);
+      return res.send(result);
     } catch (error) {
       throw new Error(error);
     }
@@ -19,8 +19,8 @@ class UsuarioControlador {
   getUsuariosAll = async (req, res) => {
     const { body } = req;
     try {
-      let usuarios = await this.usuarioApi.getUsuariosAll(body.valor);
-      return res.send(usuarios);
+      const result = await this.usuarioApi.getUsuariosAll(body.valor);
+      return res.send(result);
     } catch (error) {
       throw new Error(error);
     }
@@ -29,7 +29,7 @@ class UsuarioControlador {
   deleteUsuario = async (req, res) => {
     const { body } = req;
     try {
-      let eliminados = await this.usuarioApi.deleteUsuario(body.id);
+      const eliminados = await this.usuarioApi.deleteUsuario(body.id);
       return res.send({ eliminados });
     } catch (error) {
       throw new Error(error);
@@ -39,8 +39,8 @@ class UsuarioControlador {
   updateUsuario = async (req, res) => {
     const { body } = req;
     try {
-      let usuario = await this.usuarioApi.updateUsuario(body);
-      return res.send(usuario);
+      const result = await this.usuarioApi.updateUsuario(body);
+      return res.send(result);
     } catch (error) {
       throw new Error(error);
     }
@@ -52,8 +52,8 @@ class UsuarioControlador {
       const result = await this.usuarioApi.getIdUsuario(UtilidadesCj.getAnoMes());
       const nuevoId = UtilidadesCj.generarID(8, result.id_usuario);
       const registro = { id_usuario: nuevoId, ...body };
-      let usuario = await this.usuarioApi.saveUsuario(registro);
-      return res.send(usuario);
+      const dato = await this.usuarioApi.saveUsuario(registro);
+      return res.send(dato);
     } catch (error) {
       throw new Error(error);
     }

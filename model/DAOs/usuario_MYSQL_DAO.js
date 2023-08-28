@@ -10,26 +10,30 @@ class UsuarioMYSQL extends UsuariosBaseDAO {
 
   getIdUsuario = async (anomes) => {
     try {
-      let result = await this._db
+      const result = await this._db
         .select("id_usuario")
         .from("usuarios")
         .where("id_usuario", "like", `${anomes}%`)
         .orderBy("id_usuario", "desc")
         .first();
-      return result;
+      if (result) {
+        return result;
+      } else {
+        return { id_usuario: `${anomes}0000` };
+      }
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  getUsuarios = async (id_usuario) => {
+  getUsuarios = async (id) => {
     try {
       const rows = await this._db
         .select("*")
         .from("usuarios")
         .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
-        .where("id_usuario", id_usuario);
-      const usuario = rows.map((row) => {
+        .where("id_usuario", id);
+      const result = rows.map((row) => {
         return {
           id_usuario: row["id_usuario"],
           nombre_usuario: row["nombre_usuario"],
@@ -40,7 +44,7 @@ class UsuarioMYSQL extends UsuariosBaseDAO {
           level: row["level"],
         };
       });
-      return usuario;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
@@ -55,7 +59,7 @@ class UsuarioMYSQL extends UsuariosBaseDAO {
         .innerJoin("roles", "usuarios.id_rol", "roles.id_rol")
         .limit(100)
         .orderBy("id_usuario", "asc");
-      const usuarios = rows.map((row) => {
+      const result = rows.map((row) => {
         return {
           id_usuario: row["id_usuario"],
           nombre_usuario: row["nombre_usuario"],
@@ -66,7 +70,7 @@ class UsuarioMYSQL extends UsuariosBaseDAO {
           level: row["level"],
         };
       });
-      return usuarios;
+      return result;
     } catch (error) {
       throw new Error(error);
     }
@@ -97,9 +101,9 @@ class UsuarioMYSQL extends UsuariosBaseDAO {
     }
   };
 
-  deleteUsuario = async (id_usuario) => {
+  deleteUsuario = async (id) => {
     try {
-      const rows = await this._db("usuarios").where("id_usuario", "=", id_usuario).del();
+      const rows = await this._db("usuarios").where("id_usuario", "=", id).del();
       return rows;
     } catch (error) {
       throw new Error(error);

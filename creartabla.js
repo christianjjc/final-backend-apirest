@@ -138,10 +138,10 @@ const crearTabla = async (db, nombreTabla) => {
         });
       break;
 
-    case "productos_proveedor":
+    case "producto_proveedor":
       db.schema
         .createTable(nombreTabla, (table) => {
-          table.string("id_productos_proveedor", 8).primary().notNullable().unique(),
+          table.string("id_producto_proveedor", 8).primary().notNullable().unique(),
             table.string("id_producto").references("productos.id_producto").onDelete("RESTRICT"),
             table.string("id_proveedor").references("proveedores.id_proveedor").onDelete("RESTRICT");
         })
@@ -224,7 +224,7 @@ const creamysql = async () => {
   //await crearTabla(conectaMYSQL(knex), "categorias_prod");
   //await crearTabla(conectaMYSQL(knex), "undmed");
   //await crearTabla(conectaMYSQL(knex), "productos");
-  //await crearTabla(conectaMYSQL(knex), "productos_proveedor");
+  //await crearTabla(conectaMYSQL(knex), "producto_proveedor");
   //--------------------
 };
 const insertamysql = async () => {

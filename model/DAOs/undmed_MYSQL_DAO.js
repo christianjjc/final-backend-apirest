@@ -1,40 +1,39 @@
 import dbInstance from "../../connection/connMysql.js";
-import RolesBaseDAO from "./rol_Base_DAO.js";
+import UndmedBaseDAO from "./undmed_Base_DAO.js";
 import moment from "moment";
 
-class RolMYSQL extends RolesBaseDAO {
+class UndmedMYSQL extends UndmedBaseDAO {
   constructor() {
     super();
     this._db = dbInstance.getConnection();
   }
 
-  getIdRol = async (anomes) => {
+  getIdUndmed = async (anomes) => {
     try {
       const result = await this._db
-        .select("id_rol")
-        .from("roles")
-        .where("id_rol", "like", `${anomes}%`)
-        .orderBy("id_rol", "desc")
+        .select("id_undmed")
+        .from("undmed")
+        .where("id_undmed", "like", `${anomes}%`)
+        .orderBy("id_undmed", "desc")
         .first();
       if (result) {
         return result;
       } else {
-        return { id_rol: `${anomes}0000` };
+        return { id_undmed: `${anomes}0000` };
       }
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  getRoles = async (id) => {
+  getUndmed = async (id) => {
     try {
-      const rows = await this._db.select("*").from("roles").where("id_rol", id);
+      const rows = await this._db.select("*").from("undmed").where("id_undmed", id);
       const result = rows.map((row) => {
         return {
-          id_rol: row["id_rol"],
-          nombre_rol: row["nombre_rol"],
-          desc_rol: row["desc_rol"],
-          level: row["level"],
+          id_undmed: row["id_undmed"],
+          nombre_undmed: row["nombre_undmed"],
+          abr: row["abr"],
         };
       });
       return result;
@@ -43,21 +42,19 @@ class RolMYSQL extends RolesBaseDAO {
     }
   };
 
-  getRolesAll = async (valor) => {
+  getUndmedAll = async (valor) => {
     try {
       const rows = await this._db
         .select("*")
-        .from("roles")
-        .where("nombre_rol", "like", `%${valor}%`)
-        .orWhere("desc_rol", "like", `%${valor}%`)
+        .from("undmed")
+        .where("nombre_undmed", "like", `%${valor}%`)
         .limit(100)
-        .orderBy("id_rol", "asc");
+        .orderBy("id_undmed", "asc");
       const result = rows.map((row) => {
         return {
-          id_rol: row["id_rol"],
-          nombre_rol: row["nombre_rol"],
-          desc_rol: row["desc_rol"],
-          level: row["level"],
+          id_undmed: row["id_undmed"],
+          nombre_undmed: row["nombre_undmed"],
+          abr: row["abr"],
         };
       });
       return result;
@@ -66,23 +63,22 @@ class RolMYSQL extends RolesBaseDAO {
     }
   };
 
-  saveRol = async (obj) => {
+  saveUndmed = async (obj) => {
     try {
-      await this._db("roles").insert(obj);
+      await this._db("undmed").insert(obj);
       return obj;
     } catch (error) {
       throw new Error(error);
     }
   };
 
-  updateRol = async (obj) => {
+  updateUndmed = async (obj) => {
     try {
-      const rows = await this._db("roles")
-        .where("id_rol", "=", obj.id_rol)
+      const rows = await this._db("undmed")
+        .where("id_undmed", "=", obj.id_undmed)
         .update({
-          nombre_rol: obj.nombre_rol,
-          desc_rol: obj.desc_rol,
-          level: obj.level,
+          nombre_undmed: obj.nombre_undmed,
+          abr: obj.abr,
           updated_at: moment().format("YYYY-MM-DD HH:mm:ss"),
         });
       return rows;
@@ -91,9 +87,9 @@ class RolMYSQL extends RolesBaseDAO {
     }
   };
 
-  deleteRol = async (id) => {
+  deleteUndmed = async (id) => {
     try {
-      const rows = await this._db("roles").where("id_rol", "=", id).del();
+      const rows = await this._db("undmed").where("id_undmed", "=", id).del();
       return rows;
     } catch (error) {
       if (error.errno === 1451) {
@@ -108,4 +104,4 @@ class RolMYSQL extends RolesBaseDAO {
   };
 }
 
-export default RolMYSQL;
+export default UndmedMYSQL;
