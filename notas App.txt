@@ -1,0 +1,15 @@
+1. Para crear la bd y las tablas revisar los archivos:
+** creartabla_objs.js
+** creartabla.js
+
+2. Iniciar el sevidor MySQL con XAMP o el sw que se tenga.
+
+3. El servidor se debe iniciar con:
+** npm run devmysql
+
+
+
+
+
+
+
