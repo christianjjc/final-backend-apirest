@@ -1,7 +1,8 @@
 import dotenv from "dotenv";
 import path from "path";
 
-const pathFile = "./env/" + process.env.NODE_ENV + ".env";
+//const pathFile = "./env/" + process.env.NODE_ENV + ".env";
+const pathFile = "./.env";
 console.log("ruta completa al archivo --> " + pathFile);
 
 dotenv.config({
